@@ -1,0 +1,109 @@
+import React, {PureComponent} from 'react';
+import {View, FlatList, RefreshControl} from 'react-native';
+import {connect} from 'react-redux';
+import globalStyles from '../styles/globalStyles';
+import NavBar from '../component/NavBar';
+import {
+  clearSearchArticle,
+  fetchSearchArticle,
+  fetchSearchArticleMore,
+} from '../actions';
+import Color from '../utils/Color';
+import ArticleItemRow from '../component/ArticleItemRow';
+import ListFooter from '../component/ListFooter';
+import {getRealDP as dp} from '../utils/screenUtil';
+
+/**
+ * 搜索文章结果页
+ */
+class SearchArticleScreen extends PureComponent {
+  constructor(props) {
+    super(props);
+    const {navigation} = props;
+    const key = navigation.getParam('key', '');
+    this.state = {
+      key,
+      isRefreshing: false,
+    };
+    this.renderItem = this.renderItem.bind(this);
+    this.renderFooter = this.renderFooter.bind(this);
+    this.onRefresh = this.onRefresh.bind(this);
+    this.onEndReached = this.onEndReached.bind(this);
+  }
+
+  componentDidMount() {
+    fetchSearchArticle(this.state.key);
+  }
+
+  async onRefresh() {
+    this.setState({isRefreshing: true});
+    await fetchSearchArticle(this.state.key);
+    this.setState({isRefreshing: false});
+  }
+
+  onEndReached() {
+    fetchSearchArticleMore(this.state.key, this.props.page);
+  }
+
+  renderItem({item}) {
+    const {navigation} = this.props;
+    return <ArticleItemRow navigation={navigation} item={item} />;
+  }
+
+  renderFooter() {
+    const {isRenderFooter, isFullData} = this.props;
+    return (
+      <ListFooter
+        isRenderFooter={isRenderFooter}
+        isFullData={isFullData}
+        indicatorColor={Color.THEME}
+      />
+    );
+  }
+
+  render() {
+    const {navigation, dataSource} = this.props;
+    return (
+      <View style={globalStyles.container}>
+        <NavBar
+          title={this.state.key}
+          navigation={navigation}
+          onLeftPress={() => {
+            clearSearchArticle();
+            navigation.goBack();
+          }}
+        />
+        <FlatList
+          data={dataSource}
+          keyExtractor={item => item.id.toString()}
+          renderItem={this.renderItem}
+          ListHeaderComponent={() => <View style={{height: dp(20)}} />}
+          ListFooterComponent={this.renderFooter}
+          onEndReached={this.onEndReached}
+          onEndReachedThreshold={0.2}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.isRefreshing}
+              onRefresh={this.onRefresh}
+              tintColor={Color.THEME}
+              colors={[Color.THEME]}
+              title="玩命加载中..."
+              titleColor={Color.TEXT_LIGHT}
+            />
+          }
+        />
+      </View>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    page: state.search.page,
+    dataSource: state.search.dataSource,
+    isRenderFooter: state.search.isRenderFooter,
+    isFullData: state.search.isFullData,
+  };
+};
+
+export default connect(mapStateToProps)(SearchArticleScreen);
