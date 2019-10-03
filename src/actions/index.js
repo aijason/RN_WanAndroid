@@ -44,11 +44,10 @@ import {
   getCollectArticleMoreAction,
   getHomeAddCollectAction,
   getHomeCancelCollectAction,
+  getChangeThemeColorAction,
 } from './action-creator';
 import {showToast} from '../utils/Utility';
 import AuthUtil from '../utils/AuthUtil';
-
-// const {store} = configureStore();
 
 export function fetchHomeBanner() {
   getHomeBanner().then(res => store.dispatch(getHomeBannerAction(res.data)));
@@ -74,7 +73,7 @@ export function fetchToRegister(params, navigation) {
       showToast('注册成功');
     })
     .catch(e => {
-      showToast('注册失败');
+      showToast(e);
     });
 }
 
@@ -98,6 +97,11 @@ export function fetchToLogout() {
       store.dispatch(getToLogoutAction());
     })
     .catch(e => {});
+}
+
+export async function changeThemeColor(color) {
+  await AuthUtil.saveThemeColor(color);
+  store.dispatch(getChangeThemeColorAction(color));
 }
 
 export async function fetchSystemData() {

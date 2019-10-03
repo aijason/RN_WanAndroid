@@ -44,18 +44,18 @@ class CollectScreen extends PureComponent {
   }
 
   renderFooter() {
-    const {isRenderFooter, isFullData} = this.props;
+    const {isRenderFooter, isFullData, themeColor} = this.props;
     return (
       <ListFooter
         isRenderFooter={isRenderFooter}
         isFullData={isFullData}
-        indicatorColor={Color.THEME}
+        indicatorColor={themeColor}
       />
     );
   }
 
   render() {
-    const {navigation, dataSource} = this.props;
+    const {navigation, dataSource, themeColor} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar title={'我的收藏'} navigation={navigation} />
@@ -71,8 +71,8 @@ class CollectScreen extends PureComponent {
             <RefreshControl
               refreshing={this.state.isRefreshing}
               onRefresh={this.onRefresh}
-              tintColor={Color.THEME}
-              colors={[Color.THEME]}
+              tintColor={themeColor}
+              colors={[themeColor]}
               title="玩命加载中..."
               titleColor={Color.TEXT_LIGHT}
             />
@@ -89,6 +89,7 @@ const mapStateToProps = state => {
     dataSource: state.collect.dataSource,
     isRenderFooter: state.collect.isRenderFooter,
     isFullData: state.collect.isFullData,
+    themeColor: state.user.themeColor,
   };
 };
 

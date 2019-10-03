@@ -10,18 +10,32 @@ import ArticleTabComponent from '../component/ArticleTabComponent';
 class ArticleTabScreen extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      articleTabs: [],
+    };
+  }
+
+  componentDidMount() {
+    const {navigation} = this.props;
+    const articleTabs = navigation.getParam('articleTabs', []);
+    this.timer && clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.setState({articleTabs});
+    }, 100);
+  }
+
+  componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
   }
 
   render() {
     const {navigation} = this.props;
-    const articleTabs = navigation.getParam('articleTabs', []);
     const title = navigation.getParam('title', '');
     return (
       <View style={globalStyles.container}>
         <NavBar title={title} navigation={navigation} />
         <ArticleTabComponent
-          articleTabs={articleTabs}
+          articleTabs={this.state.articleTabs}
           navigation={navigation}
         />
       </View>

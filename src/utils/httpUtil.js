@@ -22,7 +22,7 @@ export default class httpUtil {
       } catch (error) {
         const errorMsg = `请求报错路径: ${url} \n请求报错信息: ${error}`;
         console.log(errorMsg);
-        reject(errorMsg);
+        reject(error);
       }
     });
   }
@@ -30,14 +30,12 @@ export default class httpUtil {
   static post(url, params) {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log('url', url)
-        console.log('params', params)
         let res = await axios.post(url, params);
         resolve(res);
       } catch (error) {
         const errorMsg = `请求报错路径: ${url} \n请求报错信息: ${error}`;
         console.log(errorMsg);
-        reject(errorMsg);
+        reject(error);
       }
     });
   }

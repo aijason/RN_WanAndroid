@@ -2,6 +2,7 @@
  * Created by huangjunsheng on 2019-09-22
  */
 import actionTypes from './actionType';
+import AuthUtil from '../utils/AuthUtil';
 
 export function getHomeBannerAction(homeBanner) {
   return {
@@ -53,6 +54,13 @@ export function getToLoginFailureAction() {
 export function getToLogoutAction() {
   return {
     type: actionTypes.FETCH_TO_LOGOUT,
+  };
+}
+
+export function getChangeThemeColorAction(themeColor) {
+  return {
+    type: actionTypes.CHANGE_THEME_COLOR,
+    themeColor,
   };
 }
 

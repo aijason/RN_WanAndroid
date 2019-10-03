@@ -44,14 +44,14 @@ class LoginScreen extends PureComponent {
   }
 
   render() {
-    const {navigation} = this.props;
+    const {navigation, themeColor} = this.props;
     return (
       <View style={styles.container}>
         <NavBar title={'登录'} navigation={navigation} />
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.content}>
             <View style={styles.textInputWrapper}>
-              <Icon name={'md-person'} size={dp(50)} color={Color.THEME} />
+              <Icon name={'md-person'} size={dp(50)} color={themeColor} />
               <TextInput
                 placeholder={'用户名'}
                 placeholderTextColor={Color.TEXT_LIGHT}
@@ -64,7 +64,7 @@ class LoginScreen extends PureComponent {
               />
             </View>
             <View style={styles.textInputWrapper}>
-              <Icon name={'md-lock'} size={dp(50)} color={Color.THEME} />
+              <Icon name={'md-lock'} size={dp(50)} color={themeColor} />
               <TextInput
                 placeholder={'密码'}
                 placeholderTextColor={Color.TEXT_LIGHT}
@@ -85,18 +85,20 @@ class LoginScreen extends PureComponent {
                 <Icon
                   name={this.state.isSecure ? 'md-eye' : 'md-eye-off'}
                   size={dp(50)}
-                  color={Color.THEME}
+                  color={themeColor}
                 />
               </Touchable>
             </View>
-            <Touchable style={styles.login} onPress={this.toLogin}>
+            <Touchable
+              style={[styles.login, {backgroundColor: themeColor}]}
+              onPress={this.toLogin}>
               <Text style={styles.loginText}>登录</Text>
             </Touchable>
             <Touchable
               onPress={() => {
                 navigation.navigate('Register');
               }}>
-              <Text style={styles.register}>
+              <Text style={[styles.register, {color: themeColor}]}>
                 <Text style={{color: Color.TEXT_LIGHT}}>新用户？去</Text>注册
               </Text>
             </Touchable>
@@ -135,7 +137,6 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH * 0.7,
     marginTop: dp(60),
     padding: dp(30),
-    backgroundColor: Color.THEME,
     borderRadius: dp(50),
   },
   loginText: {
@@ -150,7 +151,6 @@ const styles = StyleSheet.create({
     padding: dp(5),
   },
   register: {
-    color: Color.THEME,
     marginTop: dp(40),
     fontSize: dp(28),
   },
@@ -162,6 +162,8 @@ LoginScreen.defaultProps = defaultProps;
 const mapStateToProps = state => {
   return {
     isLogin: state.user.isLogin,
+    userInfo: state.user.userInfo,
+    themeColor: state.user.themeColor,
   };
 };
 

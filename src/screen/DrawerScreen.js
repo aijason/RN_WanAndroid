@@ -9,16 +9,23 @@ import {
   TouchableNativeFeedback,
   View,
   Share,
+  Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import globalStyles from '../styles/globalStyles';
-import {getRealDP as dp} from '../utils/screenUtil';
+import {
+  DEVICE_HEIGHT,
+  DEVICE_WIDTH,
+  getRealDP as dp,
+} from '../utils/screenUtil';
 import Color from '../utils/Color';
 import Touchable from '../component/Touchable';
 import Icon from 'react-native-vector-icons/Ionicons';
 import images from '../images';
 import {connect} from 'react-redux';
-import {fetchToLogout} from '../actions';
-import {showToast} from '../utils/Utility';
+import {changeThemeColor, fetchToLogout} from '../actions';
+import {getThemeColorDataSource, showToast} from '../utils/Utility';
+import {ScrollView} from 'react-navigation';
 
 /**
  * 抽屉
@@ -26,7 +33,9 @@ import {showToast} from '../utils/Utility';
 class DrawerScreen extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      modalVisible: false,
+    };
     // 抽屉item数据源
     this.drawerData = [
       {iconName: 'md-heart', title: '我的收藏'},
@@ -36,7 +45,10 @@ class DrawerScreen extends PureComponent {
       {iconName: 'md-person', title: '关于作者'},
       {iconName: 'md-power', title: '退出登录'},
     ];
+    this.renderHeader = this.renderHeader.bind(this);
+    this.renderThemeModal = this.renderThemeModal.bind(this);
     this.handleDrawerItemPress = this.handleDrawerItemPress.bind(this);
+    this.setModalVisible = this.setModalVisible.bind(this);
   }
 
   async onShare() {
@@ -63,6 +75,7 @@ class DrawerScreen extends PureComponent {
         navigation.navigate('Websites');
         break;
       case '主题':
+        this.setModalVisible(true);
         break;
       case '分享':
         this.onShare();
@@ -76,6 +89,10 @@ class DrawerScreen extends PureComponent {
       default:
         break;
     }
+  }
+
+  setModalVisible() {
+    this.setState({modalVisible: !this.state.modalVisible});
   }
 
   renderDrawerItem(item) {
@@ -96,42 +113,93 @@ class DrawerScreen extends PureComponent {
     );
   }
 
-  render() {
-    const {navigation, userInfo, isLogin} = this.props;
+  renderHeader() {
+    const {navigation, userInfo, isLogin, themeColor} = this.props;
     return (
-      <View style={globalStyles.container}>
-        <Touchable
-          isWithoutFeedback
-          disabled={isLogin}
-          onPress={() => navigation.navigate('Login')}>
-          <View style={styles.topContainer}>
-            <View>
+      <Touchable
+        isWithoutFeedback
+        disabled={isLogin}
+        onPress={() => navigation.navigate('Login')}>
+        <View style={[styles.topContainer, {backgroundColor: themeColor}]}>
+          <View>
+            {isLogin ? (
               <Image
                 source={images.logoIcon}
                 style={styles.logo}
                 resizeMode={'cover'}
               />
-              <Text style={styles.loginText}>
-                {userInfo.username ? userInfo.username : '未登录'}
-              </Text>
-            </View>
-            <Touchable
-              isPreventDouble={false}
-              isNativeFeedback
-              background={TouchableNativeFeedback.Ripple(
-                'rgba(50,50,50,0.3)',
-                true,
-              )}
-              onPress={() => navigation.closeDrawer()}>
-              <View style={styles.closeIconWrapper}>
-                <Icon name={'md-close'} size={dp(50)} color={Color.WHITE} />
+            ) : (
+              <View style={styles.myPhoto}>
+                <Icon
+                  name={'md-person'}
+                  size={dp(150)}
+                  color={Color.ICON_GRAY}
+                />
               </View>
-            </Touchable>
+            )}
+            <Text style={styles.loginText}>
+              {userInfo.username ? userInfo.username : '未登录'}
+            </Text>
           </View>
-        </Touchable>
+          <Touchable
+            isPreventDouble={false}
+            isNativeFeedback
+            background={TouchableNativeFeedback.Ripple(
+              'rgba(50,50,50,0.3)',
+              true,
+            )}
+            onPress={() => navigation.closeDrawer()}>
+            <View style={styles.closeIconWrapper}>
+              <Icon name={'md-close'} size={dp(50)} color={Color.WHITE} />
+            </View>
+          </Touchable>
+        </View>
+      </Touchable>
+    );
+  }
+
+  renderThemeModal() {
+    return (
+      <Modal
+        transparent
+        animationType="fade"
+        visible={this.state.modalVisible}
+        onRequestClose={this.setModalVisible}>
+        <TouchableWithoutFeedback onPress={this.setModalVisible}>
+          <View style={styles.themeColorWrapper}>
+            <TouchableWithoutFeedback>
+              <View style={styles.themeColorContent}>
+                <View style={styles.themeColorTitle}>
+                  <Text style={styles.themeColorText}>设置主题</Text>
+                </View>
+                <ScrollView>
+                  {getThemeColorDataSource().map((el, index) => (
+                    <Touchable
+                      key={index}
+                      style={[styles.themeColorItem, {backgroundColor: el}]}
+                      onPress={async () => {
+                        await changeThemeColor(el);
+                        this.setModalVisible();
+                      }}
+                    />
+                  ))}
+                </ScrollView>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+    );
+  }
+
+  render() {
+    return (
+      <View style={globalStyles.container}>
+        {this.renderHeader()}
         <View style={{marginTop: dp(28)}}>
           {this.drawerData.map(item => this.renderDrawerItem(item))}
         </View>
+        {this.renderThemeModal()}
       </View>
     );
   }
@@ -141,16 +209,25 @@ const styles = StyleSheet.create({
   topContainer: {
     height: dp(450),
     width: dp(600),
-    backgroundColor: Color.THEME,
     paddingTop: dp(130),
     paddingHorizontal: dp(28),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  myPhoto: {
+    backgroundColor: Color.WHITE,
+    width: dp(200),
+    height: dp(200),
+    borderRadius: dp(100),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   logo: {
     width: dp(200),
     height: dp(200),
     borderRadius: dp(100),
+    borderWidth: dp(3),
+    borderColor: Color.WHITE,
   },
   loginText: {
     fontSize: dp(40),
@@ -178,12 +255,41 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  themeColorWrapper: {
+    width: DEVICE_WIDTH,
+    height: DEVICE_HEIGHT,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  themeColorContent: {
+    width: DEVICE_WIDTH * 0.8,
+    height: DEVICE_HEIGHT * 0.8,
+    backgroundColor: Color.WHITE,
+    paddingHorizontal: dp(30),
+    paddingBottom: dp(30),
+  },
+  themeColorTitle: {
+    paddingVertical: dp(30),
+    alignItems: 'center',
+  },
+  themeColorText: {
+    color: Color.TEXT_MAIN,
+    fontSize: dp(36),
+    fontWeight: 'bold',
+  },
+  themeColorItem: {
+    height: dp(100),
+    marginBottom: dp(30),
+    borderRadius: dp(100),
+  },
 });
 
 const mapStateToProps = state => {
   return {
     isLogin: state.user.isLogin,
     userInfo: state.user.userInfo,
+    themeColor: state.user.themeColor,
   };
 };
 

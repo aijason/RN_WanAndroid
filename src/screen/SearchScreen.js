@@ -26,7 +26,7 @@ class SearchScreen extends PureComponent {
   }
 
   render() {
-    const {navigation, hotKey} = this.props;
+    const {navigation, hotKey, themeColor} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   hotKeyTitleText: {
     fontSize: dp(38),
-    color: Color.THEME,
+    color: Color.TEXT_MAIN,
     marginLeft: dp(15),
   },
   hotKeyWrapper: {
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     hotKey: state.search.hotKey,
+    themeColor: state.user.themeColor,
   };
 };
 

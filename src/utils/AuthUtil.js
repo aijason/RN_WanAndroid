@@ -4,10 +4,19 @@
 import React from 'react';
 import StorageUtil from './storageUtil';
 
-const userNameKey = 'userName';
-const cookieKey = 'cookie';
+const userNameKey = '@userName';
+const cookieKey = '@cookie';
+const themeColorKey = '@cookie';
 
 class AuthUtil {
+  static saveThemeColor = color => {
+    return StorageUtil.save(themeColorKey, color);
+  };
+
+  static getThemeColor = () => {
+    return StorageUtil.get(themeColorKey);
+  };
+
   static saveUserName = name => {
     return StorageUtil.save(userNameKey, name);
   };

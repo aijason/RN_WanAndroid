@@ -12,13 +12,14 @@ import {
   getRealDP as dp,
 } from '../utils/screenUtil';
 import images from '../images';
+import {connect} from 'react-redux';
 
 /**
  * 关于作者
  */
 class AboutScreen extends PureComponent {
   render() {
-    const {navigation} = this.props;
+    const {navigation, themeColor} = this.props;
     const gitHubStr = 'https://github.com/aijason';
     const csdnStr = 'https://blog.csdn.net/u010379595';
     return (
@@ -32,14 +33,14 @@ class AboutScreen extends PureComponent {
           <View style={styles.item}>
             <Text style={styles.itemText}>
               邮箱：
-              <Text style={{color: Color.THEME}}>977854695@qq.com</Text>
+              <Text style={{color: themeColor}}>977854695@qq.com</Text>
             </Text>
           </View>
           <View style={styles.item}>
             <Text style={styles.itemText}>
               CSDN：
               <Text
-                style={styles.underlineText}
+                style={[styles.underlineText, {color: themeColor}]}
                 onPress={() => {
                   navigation.navigate('WebView', {
                     title: 'CSDN',
@@ -54,7 +55,7 @@ class AboutScreen extends PureComponent {
             <Text style={styles.itemText}>
               GitHub：
               <Text
-                style={styles.underlineText}
+                style={[styles.underlineText, {color: themeColor}]}
                 onPress={() => {
                   navigation.navigate('WebView', {
                     title: 'GitHub',
@@ -130,9 +131,14 @@ const styles = StyleSheet.create({
     bottom: getBottomSpace(),
   },
   underlineText: {
-    color: Color.THEME,
     textDecorationLine: 'underline',
   },
 });
 
-export default AboutScreen;
+const mapStateToProps = state => {
+  return {
+    themeColor: state.user.themeColor,
+  };
+};
+
+export default connect(mapStateToProps)(AboutScreen);

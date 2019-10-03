@@ -24,7 +24,6 @@ class ProjectScreen extends PureComponent {
       <View style={globalStyles.container}>
         <NavBar
           title={'项目'}
-          backgroundColor={Color.THEME}
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"

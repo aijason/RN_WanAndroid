@@ -55,7 +55,7 @@ class WebsitesScreen extends PureComponent {
   renderSeparator = () => <View style={{height: dp(30)}} />;
 
   render() {
-    const {navigation, websites} = this.props;
+    const {navigation, websites, themeColor} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar title={'常用网站'} navigation={navigation} />
@@ -71,8 +71,8 @@ class WebsitesScreen extends PureComponent {
             <RefreshControl
               refreshing={this.state.isRefreshing}
               onRefresh={this.onRefresh}
-              tintColor={Color.THEME}
-              colors={[Color.THEME]}
+              tintColor={themeColor}
+              colors={[themeColor]}
               title="玩命加载中..."
               titleColor={Color.TEXT_LIGHT}
             />
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     websites: state.home.websites,
+    themeColor: state.user.themeColor,
   };
 };
 

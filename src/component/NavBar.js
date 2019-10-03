@@ -1,6 +1,13 @@
 import React, {PureComponent} from 'react';
-import {View, Text, StyleSheet, TouchableNativeFeedback} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableNativeFeedback,
+  Image,
+} from 'react-native';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   DEVICE_WIDTH,
@@ -10,6 +17,7 @@ import {
 } from '../utils/screenUtil';
 import Color from '../utils/Color';
 import Touchable from './Touchable';
+import images from '../images';
 
 const propTypes = {
   title: PropTypes.string,
@@ -18,7 +26,6 @@ const propTypes = {
   onLeftPress: PropTypes.func,
   rightIcon: PropTypes.string,
   onRightPress: PropTypes.func,
-  backgroundColor: PropTypes.string,
   navigation: PropTypes.object.isRequired,
   navBarStyle: PropTypes.oneOfType([
     PropTypes.number,
@@ -29,7 +36,6 @@ const propTypes = {
 const defaultProps = {
   title: '',
   leftIcon: 'md-arrow-back',
-  backgroundColor: Color.THEME,
   noStatusBarHeight: false,
   navBarStyle: {},
 };
@@ -60,35 +66,44 @@ class NavBar extends PureComponent {
   }
 
   render() {
-    const {rightIcon, backgroundColor, navBarStyle} = this.props;
+    const {
+      leftIcon,
+      rightIcon,
+      navBarStyle,
+      titleView,
+      title,
+      onRightPress,
+      isLogin,
+      themeColor,
+    } = this.props;
     return (
       <View
-        style={[
-          styles.container,
-          {backgroundColor: backgroundColor},
-          navBarStyle,
-        ]}>
+        style={[styles.container, {backgroundColor: themeColor}, navBarStyle]}>
         {/* 左侧按钮 */}
         <Touchable
           isNativeFeedback={isAndroid}
           background={feedBackBackground}
           onPress={this.handleLeftBtnClick}>
           <View style={styles.iconWrapper}>
-            <Icon
-              name={this.props.leftIcon}
-              size={dp(50)}
-              color={Color.WHITE}
-            />
+            {leftIcon === 'md-person' && isLogin ? (
+              <Image
+                source={images.logoIcon}
+                style={styles.myPhoto}
+                resizeMode={'cover'}
+              />
+            ) : (
+              <Icon name={leftIcon} size={dp(50)} color={Color.WHITE} />
+            )}
           </View>
         </Touchable>
 
         {/* 中间标题 */}
-        {this.props.titleView ? (
-          this.props.titleView()
+        {titleView ? (
+          titleView()
         ) : (
           <View style={styles.titleWrapper}>
             <Text numberOfLines={1} ellipsizeMode="tail" style={styles.title}>
-              {this.props.title}
+              {title}
             </Text>
           </View>
         )}
@@ -98,13 +113,9 @@ class NavBar extends PureComponent {
           <Touchable
             isNativeFeedback={isAndroid}
             background={feedBackBackground}
-            onPress={this.props.onRightPress}>
+            onPress={onRightPress}>
             <View style={styles.iconWrapper}>
-              <Icon
-                name={this.props.rightIcon}
-                size={dp(50)}
-                color={Color.WHITE}
-              />
+              <Icon name={rightIcon} size={dp(50)} color={Color.WHITE} />
             </View>
           </Touchable>
         ) : (
@@ -136,12 +147,27 @@ const styles = StyleSheet.create({
   iconWrapper: {
     height: dp(60),
     width: dp(60),
+    borderRadius: dp(30),
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  myPhoto: {
+    height: dp(58),
+    width: dp(58),
+    borderRadius: dp(29),
+    borderWidth: dp(2),
+    borderColor: Color.WHITE,
   },
 });
 
 NavBar.propTypes = propTypes;
 NavBar.defaultProps = defaultProps;
 
-export default NavBar;
+const mapStateToProps = state => {
+  return {
+    isLogin: state.user.isLogin,
+    themeColor: state.user.themeColor,
+  };
+};
+
+export default connect(mapStateToProps)(NavBar);

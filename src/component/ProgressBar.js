@@ -3,6 +3,7 @@ import {ProgressBarAndroid, ProgressViewIOS} from 'react-native';
 import PropTypes from 'prop-types';
 import {getRealDP as dp, isAndroid} from '../utils/screenUtil';
 import Color from '../utils/Color';
+import {connect} from 'react-redux';
 
 const propTypes = {
   progress: PropTypes.number.isRequired,
@@ -23,16 +24,16 @@ class ProgressBar extends PureComponent {
   }
 
   render() {
-    const {progress} = this.props;
+    const {progress, themeColor} = this.props;
     if (progress === 1) {
       return null;
     }
     if (isAndroid) {
       return (
         <ProgressBarAndroid
-          style={{height: dp(10), backgroundColor: Color.WHITE}}
+          style={{height: dp(10), backgroundColor: themeColor}}
           styleAttr="Horizontal"
-          color={Color.THEME}
+          color={themeColor}
           progress={progress}
         />
       );
@@ -40,7 +41,7 @@ class ProgressBar extends PureComponent {
     return (
       <ProgressViewIOS
         trackTintColor={Color.WHITE}
-        progressTintColor={Color.THEME}
+        progressTintColor={themeColor}
         progress={progress}
       />
     );
@@ -50,4 +51,10 @@ class ProgressBar extends PureComponent {
 ProgressBar.propTypes = propTypes;
 ProgressBar.defaultProps = defaultProps;
 
-export default ProgressBar;
+const mapStateToProps = state => {
+  return {
+    themeColor: state.user.themeColor,
+  };
+};
+
+export default connect(mapStateToProps)(ProgressBar);

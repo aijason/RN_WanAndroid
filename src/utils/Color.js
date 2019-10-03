@@ -9,7 +9,7 @@ const Color = {
   DEFAULT_BG: '#f1f2f3', // 所有页面背景颜色
   COLLECT: '#FA8072', // 收藏颜色
   GOLD: '#FFD700', // 金色
-  TEXT_TAB_INACTIVE: '#B0C4DE',
+  TEXT_TAB_INACTIVE: '#E6E6FA',
   WX_GREEN: '#3CB371',
   ICON_GRAY: '#E0E0E0',
   GUIDE_BG: '#F8F8F8',

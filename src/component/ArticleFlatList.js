@@ -6,6 +6,7 @@ import Color from '../utils/Color';
 import {fetchWxArticleList} from '../actions';
 import {getRealDP as dp} from '../utils/screenUtil';
 import ArticleItemRow from './ArticleItemRow';
+import {connect} from 'react-redux';
 
 const propTypes = {
   chapterId: PropTypes.number.isRequired,
@@ -79,6 +80,7 @@ class ArticleFlatList extends PureComponent {
   }
 
   render() {
+    const {themeColor} = this.props;
     const {dataSource} = this.state;
     if (!dataSource.length) {
       return null;
@@ -96,8 +98,8 @@ class ArticleFlatList extends PureComponent {
             <RefreshControl
               refreshing={this.state.isRefreshing}
               onRefresh={this.onRefresh}
-              tintColor={Color.THEME}
-              colors={[Color.THEME]}
+              tintColor={themeColor}
+              colors={[themeColor]}
               title="玩命加载中..."
               titleColor={Color.TEXT_LIGHT}
             />
@@ -111,4 +113,10 @@ class ArticleFlatList extends PureComponent {
 ArticleFlatList.propTypes = propTypes;
 ArticleFlatList.defaultProps = defaultProps;
 
-export default ArticleFlatList;
+const mapStateToProps = state => {
+  return {
+    themeColor: state.user.themeColor,
+  };
+};
+
+export default connect(mapStateToProps)(ArticleFlatList);

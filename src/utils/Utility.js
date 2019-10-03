@@ -9,7 +9,7 @@ import Color from './Color';
  */
 export function showToast(info) {
   if (isAndroid) {
-    return ToastAndroid.show(info, 1500);
+    return ToastAndroid.show(info, ToastAndroid.SHORT);
   }
   if (!global.toast) {
     return;
@@ -61,4 +61,26 @@ export function getChapterBgColor(index) {
     '#BC8F8F',
   ];
   return colors[id];
+}
+
+/**
+ * APP主题色数据
+ */
+export function getThemeColorDataSource() {
+  return [
+    '#2196F3',
+    '#71C671',
+    '#87CEFA',
+    '#EE82EE',
+    '#F4A460',
+    '#FF7256',
+    '#8FBC8F',
+    '#5F9EA0',
+    '#79CDCD',
+    '#BC8F8F',
+    '#7B68EE',
+    '#FF69B4',
+    '#BA55D3',
+    '#000000',
+  ];
 }

@@ -29,7 +29,6 @@ class WxArticleScreen extends PureComponent {
       <View style={globalStyles.container}>
         <NavBar
           title={'公众号'}
-          backgroundColor={Color.THEME}
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"

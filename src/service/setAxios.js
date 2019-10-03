@@ -18,10 +18,10 @@ const headers = {
 async function handleShowResponseLog(response) {
   const {config, data, request} = response;
   console.log('response', response);
-  // const cookie = get(response, 'headers.set-cookie[0]', '');
-  // if (cookie) {
-  //   await AuthUtil.saveCookie(cookie);
-  // }
+  const cookie = get(response, 'headers.set-cookie[0]', '');
+  if (cookie) {
+    await AuthUtil.saveCookie(cookie);
+  }
   console.log('请求的url: ', `${config.method}:${request.responseURL}`);
   if (config.method === 'post') {
     console.log('请求的body: ', qs.parse(config.data));
@@ -35,13 +35,13 @@ export function setAxios() {
   axios.defaults.timeout = 6000; // 请求超时时间
   axios.interceptors.request.use(
     async config => {
-      // const Cookie = await AuthUtil.getCookie();
+      const Cookie = await AuthUtil.getCookie();
       if (config.method === 'post') {
         config.data = qs.stringify(config.data);
       }
-      // if (Cookie) {
-      //   config.headers = {Cookie};
-      // }
+      if (config.url !== 'user/login' && Cookie) {
+        config.headers = {Cookie};
+      }
       return config;
     },
     function(error) {

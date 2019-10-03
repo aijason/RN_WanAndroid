@@ -66,7 +66,7 @@ class GuideScreen extends PureComponent {
   }
 
   renderLeftItem({item, index}) {
-    const {selectIndex} = this.props;
+    const {selectIndex, themeColor} = this.props;
     return (
       <Touchable
         isPreventDouble={false}
@@ -79,7 +79,7 @@ class GuideScreen extends PureComponent {
         <Text
           style={
             selectIndex === index
-              ? styles.leftTextChecked
+              ? [styles.leftTextChecked, {color: themeColor}]
               : styles.leftTextUnChecked
           }>
           {item.name}
@@ -119,7 +119,7 @@ class GuideScreen extends PureComponent {
   }
 
   render() {
-    const {navigation, guideData} = this.props;
+    const {navigation, guideData, themeColor} = this.props;
     //列表滚动变化监听配置
     const VIEWABILITY_CONFIG = {
       minimumViewTime: 0,
@@ -130,7 +130,6 @@ class GuideScreen extends PureComponent {
       <View style={globalStyles.container}>
         <NavBar
           title={'导航'}
-          backgroundColor={Color.THEME}
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"
@@ -165,8 +164,8 @@ class GuideScreen extends PureComponent {
                 <RefreshControl
                   refreshing={this.state.isRefreshing}
                   onRefresh={this.onRefresh}
-                  tintColor={Color.THEME}
-                  colors={[Color.THEME]}
+                  tintColor={themeColor}
+                  colors={[themeColor]}
                   title="玩命加载中..."
                   titleColor={Color.TEXT_LIGHT}
                 />
@@ -241,7 +240,6 @@ const styles = StyleSheet.create({
   },
   leftTextChecked: {
     fontSize: dp(26),
-    color: Color.THEME,
   },
   leftTextUnChecked: {
     fontSize: dp(26),
@@ -253,6 +251,7 @@ const mapStateToProps = state => {
   return {
     guideData: state.guide.guideData,
     selectIndex: state.guide.selectIndex,
+    themeColor: state.user.themeColor,
   };
 };
 

@@ -5,6 +5,7 @@ import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import Color from '../utils/Color';
 import {getRealDP as dp} from '../utils/screenUtil';
 import ArticleFlatList from './ArticleFlatList';
+import {connect} from 'react-redux';
 
 const propTypes = {
   articleTabs: PropTypes.array.isRequired,
@@ -14,37 +15,6 @@ const propTypes = {
 const defaultProps = {
   articleTabs: [],
   isWxArticle: false,
-};
-
-const tabConfig = {
-  lazy: true,
-  swipeEnabled: true,
-  animationEnabled: true,
-  backBehavior: 'none',
-  tabBarOptions: {
-    activeTintColor: Color.WHITE,
-    inactiveTintColor: Color.TEXT_TAB_INACTIVE,
-    scrollEnabled: true,
-    tabStyle: {
-      height: dp(70),
-      width: dp(270),
-    },
-    labelStyle: {
-      fontSize: dp(28),
-      paddingBottom: dp(25),
-      fontWeight: 'bold',
-    },
-    indicatorStyle: {
-      height: dp(4),
-      backgroundColor: Color.WHITE,
-      width: dp(100),
-      marginLeft: dp(85),
-    }, // 下划线样式
-    style: {
-      backgroundColor: Color.THEME,
-      height: dp(80),
-    },
-  },
 };
 
 class ArticleTabComponent extends PureComponent {
@@ -71,12 +41,41 @@ class ArticleTabComponent extends PureComponent {
   }
 
   render() {
-    const {articleTabs} = this.props;
+    const {articleTabs, themeColor} = this.props;
     if (!articleTabs.length) {
       return null;
     }
     const TabComponent = createAppContainer(
-      createMaterialTopTabNavigator(this.createTabs(), tabConfig),
+      createMaterialTopTabNavigator(this.createTabs(), {
+        lazy: true,
+        swipeEnabled: true,
+        animationEnabled: true,
+        backBehavior: 'none',
+        tabBarOptions: {
+          activeTintColor: Color.WHITE,
+          inactiveTintColor: Color.TEXT_TAB_INACTIVE,
+          scrollEnabled: true,
+          tabStyle: {
+            height: dp(70),
+            width: dp(270),
+          },
+          labelStyle: {
+            fontSize: dp(28),
+            paddingBottom: dp(25),
+            fontWeight: 'bold',
+          },
+          indicatorStyle: {
+            height: dp(4),
+            backgroundColor: Color.WHITE,
+            width: dp(100),
+            marginLeft: dp(85),
+          }, // 下划线样式
+          style: {
+            backgroundColor: themeColor,
+            height: dp(80),
+          },
+        },
+      }),
     );
     return <TabComponent />;
   }
@@ -85,4 +84,10 @@ class ArticleTabComponent extends PureComponent {
 ArticleTabComponent.propTypes = propTypes;
 ArticleTabComponent.defaultProps = defaultProps;
 
-export default ArticleTabComponent;
+const mapStateToProps = state => {
+  return {
+    themeColor: state.user.themeColor,
+  };
+};
+
+export default connect(mapStateToProps)(ArticleTabComponent);

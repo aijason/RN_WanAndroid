@@ -52,9 +52,8 @@ class SystemScreen extends PureComponent {
             <View style={styles.content}>
               <View style={styles.leftContent}>
                 {item.children.map(el => (
-                  <View style={{backgroundColor: Color.WHITE}}>
+                  <View key={el.id} style={{backgroundColor: Color.WHITE}}>
                     <View
-                      key={el.id}
                       style={[
                         styles.tabItemWrapper,
                         {backgroundColor: getChapterBgColor(el.id)},
@@ -77,12 +76,11 @@ class SystemScreen extends PureComponent {
   }
 
   render() {
-    const {navigation, systemData} = this.props;
+    const {navigation, systemData, themeColor} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar
           title={'体系'}
-          backgroundColor={Color.THEME}
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"
@@ -98,8 +96,8 @@ class SystemScreen extends PureComponent {
             <RefreshControl
               refreshing={this.state.isRefreshing}
               onRefresh={this.onRefresh}
-              tintColor={Color.THEME}
-              colors={[Color.THEME]}
+              tintColor={themeColor}
+              colors={[themeColor]}
               title="玩命加载中..."
               titleColor={Color.TEXT_LIGHT}
             />
@@ -159,6 +157,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     systemData: state.system.systemData,
+    themeColor: state.user.themeColor,
   };
 };
 
