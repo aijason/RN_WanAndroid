@@ -19,8 +19,8 @@ class LoginScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      userName: 'aijason',
-      password: 'asd123',
+      userName: '',
+      password: '',
       isSecure: true,
     };
     this.toLogin = this.toLogin.bind(this);
