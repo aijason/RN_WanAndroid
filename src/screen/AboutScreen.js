@@ -67,7 +67,7 @@ class AboutScreen extends PureComponent {
             </Text>
           </View>
           <Text style={styles.bottomText}>
-            本项目仅工学习使用，不得用作商业目的
+            本项目仅供学习使用，不得用作商业目的
           </Text>
         </View>
       </View>

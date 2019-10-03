@@ -174,3 +174,31 @@ export function getHomeCancelCollectAction(index) {
     index,
   };
 }
+
+export function getMyCollectCancelCollectAction(index) {
+  return {
+    type: actionTypes.FETCH_MYCOLLECT_CANCEL_COLLECT,
+    index,
+  };
+}
+
+export function getMyCollectAddCollectAction(index) {
+  return {
+    type: actionTypes.FETCH_MYCOLLECT_ADD_COLLECT,
+    index,
+  };
+}
+
+export function getSearchArticleAddCollectAction(index) {
+  return {
+    type: actionTypes.FETCH_SEARCH_ARTICLE_ADD_COLLECT,
+    index,
+  };
+}
+
+export function getSearchArticleCancelCollectAction(index) {
+  return {
+    type: actionTypes.FETCH_SEARCH_ARTICLE_CANCEL_COLLECT,
+    index,
+  };
+}

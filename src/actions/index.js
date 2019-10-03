@@ -18,6 +18,7 @@ import {
   getCollectArticleList,
   addCollectArticle,
   cancelCollectArticle,
+  cancelMyCollectArticle,
 } from '../api';
 import store from '../store';
 import {
@@ -46,6 +47,8 @@ import {
   getHomeCancelCollectAction,
   getChangeThemeColorAction,
   getInitialAuthInfoAction,
+  getMyCollectCancelCollectAction,
+  getMyCollectAddCollectAction, getSearchArticleAddCollectAction, getSearchArticleCancelCollectAction,
 } from './action-creator';
 import {showToast} from '../utils/Utility';
 import AuthUtil from '../utils/AuthUtil';
@@ -181,16 +184,35 @@ export function clearSearchArticle() {
 
 export async function fetchCollectArticleList() {
   await getCollectArticleList()
-    .then(res => store.dispatch(getCollectArticleListAction(res.data)))
+    .then(res => {
+      const dataSource = res.data.datas;
+      const datas = dataSource.map(el => {
+        return {
+          ...el,
+          collect: true,
+        };
+      });
+      store.dispatch(getCollectArticleListAction({...res.data, datas}));
+    })
     .catch(e => {});
 }
 
 export function fetchCollectArticleMore(page) {
   getCollectArticleList(page)
-    .then(res => store.dispatch(getCollectArticleMoreAction(res.data)))
+    .then(res => {
+      const dataSource = res.data.datas;
+      const datas = dataSource.map(el => {
+        return {
+          ...el,
+          collect: true,
+        };
+      });
+      store.dispatch(getCollectArticleMoreAction({...res.data, datas}));
+    })
     .catch(e => {});
 }
 
+// 首页文章收藏
 export function fetchHomeAddCollect(id, index) {
   addCollectArticle(id)
     .then(res => {
@@ -200,8 +222,43 @@ export function fetchHomeAddCollect(id, index) {
     .catch(e => {});
 }
 
+// 首页文章取消收藏
 export function fetchHomeCancelCollect(id, index) {
   cancelCollectArticle(id)
     .then(res => store.dispatch(getHomeCancelCollectAction(index)))
+    .catch(e => {});
+}
+
+// 我的收藏页-取消收藏
+export function fetchMyCollectCancelCollect(id, originId, index) {
+  cancelMyCollectArticle(id, originId)
+    .then(res => store.dispatch(getMyCollectCancelCollectAction(index)))
+    .catch(e => {});
+}
+
+// 我的收藏页-收藏
+export function fetchMyCollectAddCollect(id, index) {
+  addCollectArticle(id)
+    .then(res => {
+      showToast('已收藏');
+      store.dispatch(getMyCollectAddCollectAction(index));
+    })
+    .catch(e => {});
+}
+
+// 搜索页文章收藏
+export function fetchSearchArticleAddCollect(id, index) {
+  addCollectArticle(id)
+    .then(res => {
+      showToast('已收藏');
+      store.dispatch(getSearchArticleAddCollectAction(index));
+    })
+    .catch(e => {});
+}
+
+// 搜索页文章取消收藏
+export function fetchSearchArticleCancelCollect(id, index) {
+  cancelCollectArticle(id)
+    .then(res => store.dispatch(getSearchArticleCancelCollectAction(index)))
     .catch(e => {});
 }

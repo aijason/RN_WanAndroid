@@ -24,6 +24,15 @@ export function cancelCollectArticle(id) {
 }
 
 /**
+ * 我的收藏页-取消收藏
+ * @param id:拼接在链接上
+ * @param originId:列表页下发，无则为-1
+ */
+export function cancelMyCollectArticle(id, originId = -1) {
+  return httpUtil.post(`lg/uncollect/${id}/json`, {id, originId});
+}
+
+/**
  * 注册
  * @params username,password,repassword
  */

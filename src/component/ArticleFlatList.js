@@ -7,6 +7,14 @@ import {fetchWxArticleList} from '../actions';
 import {getRealDP as dp} from '../utils/screenUtil';
 import ArticleItemRow from './ArticleItemRow';
 import {connect} from 'react-redux';
+import {addCollectArticle, cancelCollectArticle} from '../api';
+import {showToast} from '../utils/Utility';
+import store from '../store';
+import {
+  getHomeAddCollectAction,
+  getHomeCancelCollectAction,
+} from '../actions/action-creator';
+import ListFooter from './ListFooter';
 
 const propTypes = {
   chapterId: PropTypes.number.isRequired,
@@ -27,8 +35,11 @@ class ArticleFlatList extends PureComponent {
     this.state = {
       isRefreshing: false,
       dataSource: [],
+      isRenderFooter: false,
+      isFullData: false,
     };
     this.page = 1;
+    this.renderFooter = this.renderFooter.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
     this.onEndReached = this.onEndReached.bind(this);
@@ -49,7 +60,12 @@ class ArticleFlatList extends PureComponent {
     this.setState({isRefreshing: true});
     fetchWxArticleList(chapterId)
       .then(res => {
-        this.setState({dataSource: res.datas, isRefreshing: false});
+        this.setState({
+          dataSource: res.datas,
+          isRefreshing: false,
+          isRenderFooter: !!res.data.total, // 只有total为0是不渲染footer
+          isFullData: res.data.curPage === res.data.pageCount,
+        });
       })
       .catch(e => {
         this.setState({isRefreshing: false});
@@ -61,20 +77,60 @@ class ArticleFlatList extends PureComponent {
     const {dataSource} = this.state;
     fetchWxArticleList(chapterId, ++this.page)
       .then(res => {
-        this.setState({dataSource: dataSource.concat(res.datas)});
+        this.setState({
+          dataSource: dataSource.concat(res.datas),
+          isRenderFooter: true,
+          isFullData: !res.data.datas.length,
+        });
       })
       .catch(e => {
         this.setState({isRefreshing: false});
       });
   }
 
-  renderItem({item}) {
-    const {navigation, isWxArticle} = this.props;
+  renderFooter() {
+    const {isRenderFooter, isFullData} = this.state;
+    const {themeColor} = this.props;
+    return (
+      <ListFooter
+        isRenderFooter={this.state.isRenderFooter}
+        isFullData={this.state.isFullData}
+        indicatorColor={themeColor}
+      />
+    );
+  }
+
+  renderItem({item, index}) {
+    const {navigation, isWxArticle, isLogin} = this.props;
     return (
       <ArticleItemRow
         isWxArticle={isWxArticle}
         item={item}
         navigation={navigation}
+        onCollectPress={() => {
+          if (!isLogin) {
+            showToast('请先登录');
+            return navigation.navigate('Login');
+          }
+          if (item.collect) {
+            cancelCollectArticle(item.id)
+              .then(res => {
+                let addCollectDataSource = [...this.state.dataSource];
+                addCollectDataSource[index].collect = false;
+                this.setState({dataSource: addCollectDataSource});
+              })
+              .catch(e => {});
+          } else {
+            addCollectArticle(item.id)
+              .then(res => {
+                showToast('已收藏');
+                let addCollectDataSource = [...this.state.dataSource];
+                addCollectDataSource[index].collect = true;
+                this.setState({dataSource: addCollectDataSource});
+              })
+              .catch(e => {});
+          }
+        }}
       />
     );
   }
@@ -92,6 +148,7 @@ class ArticleFlatList extends PureComponent {
           keyExtractor={item => item.id.toString()}
           renderItem={this.renderItem}
           ListHeaderComponent={() => <View style={{height: dp(20)}} />}
+          ListFooterComponent={this.renderFooter}
           onEndReached={this.onEndReached}
           onEndReachedThreshold={0.2}
           refreshControl={
@@ -116,6 +173,7 @@ ArticleFlatList.defaultProps = defaultProps;
 const mapStateToProps = state => {
   return {
     themeColor: state.user.themeColor,
+    isLogin: state.user.isLogin,
   };
 };
 

@@ -23,7 +23,7 @@ import SearchArticleScreen from './screen/SearchArticleScreen';
 import AboutScreen from './screen/AboutScreen';
 import CollectScreen from './screen/CollectScreen';
 
-const TabNavigator = createBottomTabNavigator(
+const TabScreens = createBottomTabNavigator(
   {
     Home: HomeScreen,
     System: SystemScreen,
@@ -48,18 +48,16 @@ const TabNavigator = createBottomTabNavigator(
 
 const drawerNavigator = createDrawerNavigator(
   {
-    home: {
-      screen: TabNavigator,
-      navigationOptions: {
-        drawerLockMode: 'unlocked',
-      },
-    },
+    Tabs: TabScreens,
   },
   {
     drawerWidth: dp(600),
     contentComponent: DrawerScreen,
     hideStatusBar: false,
     statusBarAnimation: 'fade',
+    defaultNavigationOptions: {
+      drawerLockMode: 'unlocked',
+    },
   },
 );
 

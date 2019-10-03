@@ -45,6 +45,20 @@ const search = (state = initialState, action) => {
         isRenderFooter: false,
         isFullData: false,
       };
+    case actionTypes.FETCH_SEARCH_ARTICLE_ADD_COLLECT:
+      let addCollectDataSource = [...state.dataSource];
+      addCollectDataSource[action.index].collect = true;
+      return {
+        ...state,
+        dataSource: addCollectDataSource,
+      };
+    case actionTypes.FETCH_SEARCH_ARTICLE_CANCEL_COLLECT:
+      let cancelCollectDataSource = [...state.dataSource];
+      cancelCollectDataSource[action.index].collect = false;
+      return {
+        ...state,
+        dataSource: cancelCollectDataSource,
+      };
     default:
       return state;
   }

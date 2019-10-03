@@ -6,6 +6,8 @@ import NavBar from '../component/NavBar';
 import {
   clearSearchArticle,
   fetchSearchArticle,
+  fetchSearchArticleAddCollect,
+  fetchSearchArticleCancelCollect,
   fetchSearchArticleMore,
 } from '../actions';
 import Color from '../utils/Color';
@@ -42,12 +44,28 @@ class SearchArticleScreen extends PureComponent {
   }
 
   onEndReached() {
+    const {isFullData} = this.props;
+    if (isFullData) {
+      return;
+    }
     fetchSearchArticleMore(this.state.key, this.props.page);
   }
 
-  renderItem({item}) {
+  renderItem({item, index}) {
     const {navigation} = this.props;
-    return <ArticleItemRow navigation={navigation} item={item} />;
+    return (
+      <ArticleItemRow
+        navigation={navigation}
+        item={item}
+        onCollectPress={() => {
+          if (item.collect) {
+            fetchSearchArticleCancelCollect(item.id, index);
+          } else {
+            fetchSearchArticleAddCollect(item.id, index);
+          }
+        }}
+      />
+    );
   }
 
   renderFooter() {

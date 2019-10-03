@@ -5,7 +5,12 @@ import React, {PureComponent} from 'react';
 import {FlatList, RefreshControl, View} from 'react-native';
 import globalStyles from '../styles/globalStyles';
 import NavBar from '../component/NavBar';
-import {fetchCollectArticleList, fetchCollectArticleMore} from '../actions';
+import {
+  fetchCollectArticleList,
+  fetchCollectArticleMore,
+  fetchMyCollectAddCollect,
+  fetchMyCollectCancelCollect,
+} from '../actions';
 import {getRealDP as dp} from '../utils/screenUtil';
 import Color from '../utils/Color';
 import {connect} from 'react-redux';
@@ -35,12 +40,28 @@ class CollectScreen extends PureComponent {
   }
 
   onEndReached() {
+    const {isFullData} = this.props;
+    if (isFullData) {
+      return;
+    }
     fetchCollectArticleMore(this.props.page);
   }
 
-  renderItem({item}) {
+  renderItem({item, index}) {
     const {navigation} = this.props;
-    return <ArticleItemRow navigation={navigation} item={item} />;
+    return (
+      <ArticleItemRow
+        navigation={navigation}
+        item={item}
+        onCollectPress={() => {
+          if (item.collect) {
+            fetchMyCollectCancelCollect(item.id, item.originId, index);
+          } else {
+            fetchMyCollectAddCollect(item.originId, index);
+          }
+        }}
+      />
+    );
   }
 
   renderFooter() {

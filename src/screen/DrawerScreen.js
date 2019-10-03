@@ -11,6 +11,7 @@ import {
   Share,
   Modal,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from 'react-native';
 import globalStyles from '../styles/globalStyles';
 import {
@@ -35,6 +36,7 @@ class DrawerScreen extends PureComponent {
     super(props);
     this.state = {
       modalVisible: false,
+      isShowIndicator: false,
     };
     // 抽屉item数据源
     this.drawerData = [
@@ -92,7 +94,10 @@ class DrawerScreen extends PureComponent {
   }
 
   setModalVisible() {
-    this.setState({modalVisible: !this.state.modalVisible});
+    this.setState({
+      modalVisible: !this.state.modalVisible,
+      isShowIndicator: false,
+    });
   }
 
   renderDrawerItem(item) {
@@ -176,16 +181,27 @@ class DrawerScreen extends PureComponent {
                   {getThemeColorDataSource().map((el, index) => (
                     <Touchable
                       key={index}
-                      style={[styles.themeColorItem, {backgroundColor: el}]}
-                      onPress={() => {
+                      style={[
+                        styles.themeColorItem,
+                        {backgroundColor: el.color},
+                      ]}
+                      onPress={async () => {
+                        this.setState({isShowIndicator: true});
+                        await changeThemeColor(el.color);
                         this.setModalVisible();
-                        changeThemeColor(el);
-                      }}
-                    />
+                      }}>
+                      <Text style={styles.themeColorName}>{el.name}</Text>
+                    </Touchable>
                   ))}
                 </ScrollView>
               </View>
             </TouchableWithoutFeedback>
+            <ActivityIndicator
+              style={styles.indicatorStyle}
+              size="large"
+              color={Color.TEXT_LIGHT}
+              animating={this.state.isShowIndicator}
+            />
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -283,6 +299,17 @@ const styles = StyleSheet.create({
     height: dp(100),
     marginBottom: dp(30),
     borderRadius: dp(100),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  themeColorName: {
+    fontSize: dp(28),
+    color: Color.WHITE,
+    fontWeight: 'bold',
+  },
+  indicatorStyle: {
+    position: 'absolute',
+    top: DEVICE_HEIGHT / 2 - dp(100),
   },
 });
 

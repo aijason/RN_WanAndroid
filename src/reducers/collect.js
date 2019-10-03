@@ -30,6 +30,20 @@ const collect = (state = initialState, action) => {
         isRenderFooter: true,
         isFullData: !action.collectData.datas.length,
       };
+    case actionTypes.FETCH_MYCOLLECT_ADD_COLLECT:
+      let addCollectDataSource = [...state.dataSource];
+      addCollectDataSource[action.index].collect = true;
+      return {
+        ...state,
+        dataSource: addCollectDataSource,
+      };
+    case actionTypes.FETCH_MYCOLLECT_CANCEL_COLLECT:
+      let cancelCollectDataSource = [...state.dataSource];
+      cancelCollectDataSource[action.index].collect = false;
+      return {
+        ...state,
+        dataSource: cancelCollectDataSource,
+      };
     default:
       return state;
   }

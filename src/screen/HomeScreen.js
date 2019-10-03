@@ -52,6 +52,10 @@ class HomeScreen extends PureComponent {
   }
 
   onEndReached() {
+    const {isFullData} = this.props;
+    if (isFullData) {
+      return;
+    }
     fetchHomeListMore(this.props.page);
   }
 
@@ -128,6 +132,7 @@ class HomeScreen extends PureComponent {
             />
           }
         />
+
       </View>
     );
   }
