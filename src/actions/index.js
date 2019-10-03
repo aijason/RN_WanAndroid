@@ -45,6 +45,7 @@ import {
   getHomeAddCollectAction,
   getHomeCancelCollectAction,
   getChangeThemeColorAction,
+  getInitialAuthInfoAction,
 } from './action-creator';
 import {showToast} from '../utils/Utility';
 import AuthUtil from '../utils/AuthUtil';
@@ -79,8 +80,9 @@ export function fetchToRegister(params, navigation) {
 
 export function fetchToLogin(params, navigation) {
   goToLogin(params)
-    .then(res => {
+    .then(async res => {
       store.dispatch(getToLoginAction(res.data));
+      await AuthUtil.saveUserInfo(res.data);
       navigation.goBack();
       showToast('登录成功');
     })
@@ -92,8 +94,8 @@ export function fetchToLogin(params, navigation) {
 
 export function fetchToLogout() {
   goToLogout()
-    .then(() => {
-      AuthUtil.removeCookie();
+    .then(async () => {
+      await AuthUtil.removeAllKeys();
       store.dispatch(getToLogoutAction());
     })
     .catch(e => {});
@@ -102,6 +104,10 @@ export function fetchToLogout() {
 export async function changeThemeColor(color) {
   await AuthUtil.saveThemeColor(color);
   store.dispatch(getChangeThemeColorAction(color));
+}
+
+export function toInitialAuthInfo(initialInfo) {
+  store.dispatch(getInitialAuthInfoAction(initialInfo));
 }
 
 export async function fetchSystemData() {

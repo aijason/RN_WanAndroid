@@ -177,9 +177,9 @@ class DrawerScreen extends PureComponent {
                     <Touchable
                       key={index}
                       style={[styles.themeColorItem, {backgroundColor: el}]}
-                      onPress={async () => {
-                        await changeThemeColor(el);
+                      onPress={() => {
                         this.setModalVisible();
+                        changeThemeColor(el);
                       }}
                     />
                   ))}
@@ -272,6 +272,7 @@ const styles = StyleSheet.create({
   themeColorTitle: {
     paddingVertical: dp(30),
     alignItems: 'center',
+    backgroundColor: Color.WHITE,
   },
   themeColorText: {
     color: Color.TEXT_MAIN,

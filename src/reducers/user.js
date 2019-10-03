@@ -48,6 +48,11 @@ const user = (state = initialStore, action) => {
         ...state,
         themeColor: action.themeColor,
       };
+    case actionTypes.INITIAL_AUTH_INFO:
+      return {
+        ...state,
+        ...action.initialInfo,
+      };
     default:
       return state;
   }

@@ -64,6 +64,13 @@ export function getChangeThemeColorAction(themeColor) {
   };
 }
 
+export function getInitialAuthInfoAction(initialInfo) {
+  return {
+    type: actionTypes.INITIAL_AUTH_INFO,
+    initialInfo,
+  };
+}
+
 export function getSystemDataAction(systemData) {
   return {
     type: actionTypes.FETCH_TO_SYSTEM_DATA,

@@ -31,7 +31,7 @@ class ProgressBar extends PureComponent {
     if (isAndroid) {
       return (
         <ProgressBarAndroid
-          style={{height: dp(10), backgroundColor: themeColor}}
+          style={{height: dp(10), backgroundColor: Color.WHITE}}
           styleAttr="Horizontal"
           color={themeColor}
           progress={progress}
