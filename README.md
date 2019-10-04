@@ -8,10 +8,14 @@
 这几年主要从事 `React Native` 的开发工作，最早接触到ReactNative的版本是`0.28^`，到最近的`0.61.1^`版本，跨度长达三年之久，爬过无数的坑，但还是对RN的未来充满信心，这次也非常感谢`WanAndroid开放API`，让我工作之余，用最新的RN版本体验下开发的乐趣！
 
 ## 简介
-[RN_WanAndroid](https://github.com/aijason/RN_WanAndroid) 采用 `React Native` 语言编写，结合 `Axios` + `React-Navigation` + `Redux` 等开源框架设计的项目，项目代码结构清晰并且有详细注释，如有任何疑问和建议请提 [Issues](https://github.com/aijason/RN_WanAndroid/issues) 或联系 qq： **977854695** ，**项目会持续迭代维护，努力打造一款优秀的 [WanAndroid](http://www.wanandroid.com/) 客户端**。
+[RN_WanAndroid](https://github.com/aijason/RN_WanAndroid) 采用 `React Native` 框架编写，基于0.61.1^版本。结合 `Axios` + `React-Navigation` + `Redux` 等开源框架设计的项目，项目代码结构清晰并且有详细注释，如有任何疑问和建议请提 [Issues](https://github.com/aijason/RN_WanAndroid/issues) 或联系 qq： **977854695** ，**项目会持续迭代维护，努力打造一款优秀的 [WanAndroid](http://www.wanandroid.com/) 客户端**。
 
 ## API
 [**玩 Android 开放 API**](http://www.wanandroid.com/blog/show/2)
+
+## 下载体验
+
+- 点击[![](https://img.shields.io/badge/Download-apk-green.svg)](https://github.com/aijason/RN_WanAndroid/raw/master/app/release/RN_WanAndroid-release.apk) 下载
 
 ## IOS项目截图
 
@@ -26,3 +30,36 @@
 | --- | --- | --- | --- |
 | ![](screenshot/android_05.png) | ![](screenshot/android_06.png) | ![](screenshot/android_07.png) | ![](screenshot/android_08.png) |
 | ![](screenshot/android_09.png) | ![](screenshot/android_10.png) | ![](screenshot/android_11.png) | ![](screenshot/android_12.png) |
+
+## 主要功能
+
+- 首页、体系、公众号、导航、项目五大模块；
+- 登录注册功能；
+- 搜索功能：热门搜索、搜索历史文章；
+- 收藏功能：添加收藏、取消收藏；
+- 浏览文章、分享文章；
+- 查看常用网站；
+- 自定义切换主题颜色功能；
+- 关于模块。
+
+## 主要开源框架
+
+ - [@react-native-community/async-storage](https://github.com/react-native-community/async-storage)
+ - [axios](https://github.com/axios/axios)
+ - [react-native](https://github.com/facebook/react-native)
+ - [react-native-gesture-handler](https://github.com/kmagiera/react-native-gesture-handler)
+ - [react-native-reanimated](https://github.com/kmagiera/react-native-reanimated)
+ - [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen)
+ - [react-native-swiper](https://github.com/leecade/react-native-swiper)
+ - [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
+ - [react-native-webview](https://github.com/react-native-community/react-native-webview)
+ - [react-navigation](https://github.com/react-navigation/react-navigation)
+ - [react-navigation-drawer](https://github.com/react-navigation/drawer)
+ - [react-navigation-stack](https://github.com/react-navigation/stack)
+ - [react-navigation-tabs](https://github.com/react-navigation/tabs)
+ - [react-redux](https://github.com/reduxjs/react-redux)
+ - [redux](https://github.com/reduxjs/redux)
+ - [redux-thunk](https://github.com/reduxjs/redux-thunk)
+ 
+ 
+ 
