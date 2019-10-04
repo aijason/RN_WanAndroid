@@ -15,7 +15,7 @@
 
 ## 下载体验
 
-- 点击[![](https://img.shields.io/badge/Download-apk-green.svg)](https://github.com/aijason/RN_WanAndroid/raw/master/app/release/RN_WanAndroid-release.apk) 下载
+- 点击[![](https://img.shields.io/badge/Download-apk-green.svg)](https://github.com/aijason/RN_WanAndroid/tree/master/android/app/release) 下载
 
 ## IOS项目截图
 
