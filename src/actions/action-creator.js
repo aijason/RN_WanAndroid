@@ -2,7 +2,6 @@
  * Created by huangjunsheng on 2019-09-22
  */
 import actionTypes from './actionType';
-import AuthUtil from '../utils/AuthUtil';
 
 export function getHomeBannerAction(homeBanner) {
   return {

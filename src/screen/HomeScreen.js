@@ -2,7 +2,7 @@
  * Created by huangjunsheng on 2019-09-16
  */
 import React, {PureComponent} from 'react';
-import {FlatList, RefreshControl, View} from 'react-native';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
 import {
   fetchHomeAddCollect,
@@ -12,13 +12,13 @@ import {
   fetchHomeListMore,
 } from '../actions';
 import NavBar from '../component/NavBar';
-import Color from '../utils/Color';
 import Banner from '../component/Banner';
 import globalStyles from '../styles/globalStyles';
 import {getRealDP as dp} from '../utils/screenUtil';
 import ListFooter from '../component/ListFooter';
 import ArticleItemRow from '../component/ArticleItemRow';
 import {showToast} from '../utils/Utility';
+import CommonFlatList from '../component/CommonFlatList';
 
 /**
  * 首页
@@ -102,7 +102,7 @@ class HomeScreen extends PureComponent {
   }
 
   render() {
-    const {navigation, dataSource, themeColor} = this.props;
+    const {navigation, dataSource} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar
@@ -113,26 +113,16 @@ class HomeScreen extends PureComponent {
           onLeftPress={() => navigation.toggleDrawer()}
           onRightPress={() => navigation.navigate('Search')}
         />
-        <FlatList
+        <CommonFlatList
           data={dataSource}
           keyExtractor={item => item.id.toString()}
           renderItem={this.renderItem}
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
           onEndReached={this.onEndReached}
-          onEndReachedThreshold={0.2}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.isRefreshing}
-              onRefresh={this.onRefresh}
-              tintColor={themeColor}
-              colors={[themeColor]}
-              title="玩命加载中..."
-              titleColor={Color.TEXT_LIGHT}
-            />
-          }
+          isRefreshing={this.state.isRefreshing}
+          toRefresh={this.onRefresh}
         />
-
       </View>
     );
   }

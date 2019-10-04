@@ -8,7 +8,7 @@ import NavBar from '../component/NavBar';
 import Color from '../utils/Color';
 import globalStyles from '../styles/globalStyles';
 import {fetchGuideData, updateSelectIndex} from '../actions';
-import {getRealDP as dp} from '../utils/screenUtil';
+import {DEVICE_HEIGHT, getRealDP as dp} from '../utils/screenUtil';
 import Touchable from '../component/Touchable';
 import {getChapterBgColor} from '../utils/Utility';
 
@@ -20,7 +20,9 @@ class GuideScreen extends PureComponent {
     super(props);
     this.state = {
       isRefreshing: false,
+      isLeftPress: false,
     };
+    this.isLeftPress = false;
     this.renderLeftItem = this.renderLeftItem.bind(this);
     this.renderRightItem = this.renderRightItem.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
@@ -32,6 +34,10 @@ class GuideScreen extends PureComponent {
     fetchGuideData();
   }
 
+  componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
+  }
+
   async onRefresh() {
     this.setState({isRefreshing: true});
     await fetchGuideData();
@@ -39,22 +45,29 @@ class GuideScreen extends PureComponent {
   }
 
   async handleLeftItemPress(index) {
-    updateSelectIndex(index);
-    this.handleScrollToItemByIndex(this.rightFlatListRef, index);
+    this.setState({isLeftPress: true}, () => {
+      updateSelectIndex(index);
+      this.handleScrollToItemByIndex(this.leftFlatListRef, index - 5);
+      this.handleScrollToItemByIndex(this.rightFlatListRef, index);
+    });
   }
 
   _onViewableItemsChanged = value => {
+    if (this.state.isLeftPress) {
+      this.timer && clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.setState({isLeftPress: false});
+      }, 1000);
+      return;
+    }
     const {viewableItems} = value;
     const index = viewableItems[0].index;
     updateSelectIndex(index);
-    if (!this.leftFlatListRef) {
-      return;
-    }
-    this.handleScrollToItemByIndex(this.leftFlatListRef, index);
+    this.handleScrollToItemByIndex(this.leftFlatListRef, index - 5);
   };
 
   handleScrollToItemByIndex(componentRef, index) {
-    if (!componentRef) {
+    if (!componentRef || index < 0) {
       return;
     }
     componentRef.scrollToIndex({
@@ -123,7 +136,7 @@ class GuideScreen extends PureComponent {
     //列表滚动变化监听配置
     const VIEWABILITY_CONFIG = {
       minimumViewTime: 0,
-      viewAreaCoveragePercentThreshold: 10,
+      viewAreaCoveragePercentThreshold: 0,
       waitForInteraction: true,
     };
     return (

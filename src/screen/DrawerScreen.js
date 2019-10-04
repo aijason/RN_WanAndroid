@@ -12,6 +12,7 @@ import {
   Modal,
   TouchableWithoutFeedback,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import globalStyles from '../styles/globalStyles';
 import {
@@ -86,7 +87,15 @@ class DrawerScreen extends PureComponent {
         navigation.navigate('About');
         break;
       case '退出登录':
-        fetchToLogout();
+        Alert.alert(
+          '提示',
+          '确认退出登录吗？',
+          [
+            {text: '取消', onPress: () => {}},
+            {text: '确认', onPress: () => fetchToLogout()},
+          ],
+          {cancelable: false},
+        );
         break;
       default:
         break;
@@ -143,7 +152,7 @@ class DrawerScreen extends PureComponent {
               </View>
             )}
             <Text style={styles.loginText}>
-              {userInfo.username ? userInfo.username : '未登录'}
+              {isLogin && userInfo.username ? userInfo.username : '未登录'}
             </Text>
           </View>
           <Touchable

@@ -1,20 +1,15 @@
 import React, {PureComponent} from 'react';
-import {FlatList, RefreshControl, View} from 'react-native';
+import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import globalStyles from '../styles/globalStyles';
-import Color from '../utils/Color';
 import {fetchWxArticleList} from '../actions';
 import {getRealDP as dp} from '../utils/screenUtil';
 import ArticleItemRow from './ArticleItemRow';
 import {connect} from 'react-redux';
 import {addCollectArticle, cancelCollectArticle} from '../api';
 import {showToast} from '../utils/Utility';
-import store from '../store';
-import {
-  getHomeAddCollectAction,
-  getHomeCancelCollectAction,
-} from '../actions/action-creator';
 import ListFooter from './ListFooter';
+import CommonFlatList from './CommonFlatList';
 
 const propTypes = {
   chapterId: PropTypes.number.isRequired,
@@ -35,7 +30,7 @@ class ArticleFlatList extends PureComponent {
     this.state = {
       isRefreshing: false,
       dataSource: [],
-      isRenderFooter: false,
+      isRenderFooter: true,
       isFullData: false,
     };
     this.page = 1;
@@ -63,8 +58,8 @@ class ArticleFlatList extends PureComponent {
         this.setState({
           dataSource: res.datas,
           isRefreshing: false,
-          isRenderFooter: !!res.data.total, // 只有total为0是不渲染footer
-          isFullData: res.data.curPage === res.data.pageCount,
+          isRenderFooter: !!res.total, // 只有total为0是不渲染footer
+          isFullData: res.curPage === res.pageCount,
         });
       })
       .catch(e => {
@@ -74,13 +69,16 @@ class ArticleFlatList extends PureComponent {
 
   onEndReached() {
     const {chapterId} = this.props;
-    const {dataSource} = this.state;
+    const {dataSource, isFullData} = this.state;
+    if (isFullData) {
+      return;
+    }
     fetchWxArticleList(chapterId, ++this.page)
       .then(res => {
         this.setState({
           dataSource: dataSource.concat(res.datas),
           isRenderFooter: true,
-          isFullData: !res.data.datas.length,
+          isFullData: !res.datas.length,
         });
       })
       .catch(e => {
@@ -89,7 +87,6 @@ class ArticleFlatList extends PureComponent {
   }
 
   renderFooter() {
-    const {isRenderFooter, isFullData} = this.state;
     const {themeColor} = this.props;
     return (
       <ListFooter
@@ -136,31 +133,21 @@ class ArticleFlatList extends PureComponent {
   }
 
   render() {
-    const {themeColor} = this.props;
     const {dataSource} = this.state;
     if (!dataSource.length) {
       return null;
     }
     return (
       <View style={globalStyles.container}>
-        <FlatList
+        <CommonFlatList
           data={dataSource}
           keyExtractor={item => item.id.toString()}
           renderItem={this.renderItem}
           ListHeaderComponent={() => <View style={{height: dp(20)}} />}
           ListFooterComponent={this.renderFooter}
           onEndReached={this.onEndReached}
-          onEndReachedThreshold={0.2}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.isRefreshing}
-              onRefresh={this.onRefresh}
-              tintColor={themeColor}
-              colors={[themeColor]}
-              title="玩命加载中..."
-              titleColor={Color.TEXT_LIGHT}
-            />
-          }
+          isRefreshing={this.state.isRefreshing}
+          toRefresh={this.onRefresh}
         />
       </View>
     );

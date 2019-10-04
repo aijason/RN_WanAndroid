@@ -48,7 +48,9 @@ import {
   getChangeThemeColorAction,
   getInitialAuthInfoAction,
   getMyCollectCancelCollectAction,
-  getMyCollectAddCollectAction, getSearchArticleAddCollectAction, getSearchArticleCancelCollectAction,
+  getMyCollectAddCollectAction,
+  getSearchArticleAddCollectAction,
+  getSearchArticleCancelCollectAction,
 } from './action-creator';
 import {showToast} from '../utils/Utility';
 import AuthUtil from '../utils/AuthUtil';
@@ -98,7 +100,8 @@ export function fetchToLogin(params, navigation) {
 export function fetchToLogout() {
   goToLogout()
     .then(async () => {
-      await AuthUtil.removeAllKeys();
+      await AuthUtil.removeCookie();
+      await AuthUtil.removeUserInfo();
       store.dispatch(getToLogoutAction());
     })
     .catch(e => {});
@@ -129,7 +132,7 @@ export function fetchWxArticleList(chapterId, page = 1) {
   return new Promise(async (resolve, reject) => {
     await getWxArticleList(chapterId, page)
       .then(res => {
-        store.dispatch(getWxArticleListAction(res.data));
+        // store.dispatch(getWxArticleListAction(res.data));
         resolve(res.data);
       })
       .catch(e => {
@@ -240,7 +243,7 @@ export function fetchMyCollectCancelCollect(id, originId, index) {
 export function fetchMyCollectAddCollect(id, index) {
   addCollectArticle(id)
     .then(res => {
-      showToast('已收藏');
+      // showToast('已收藏');
       store.dispatch(getMyCollectAddCollectAction(index));
     })
     .catch(e => {});

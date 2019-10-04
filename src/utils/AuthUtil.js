@@ -24,7 +24,7 @@ class AuthUtil {
     return StorageUtil.get(userInfoKey);
   };
 
-  static removeUser = () => {
+  static removeUserInfo = () => {
     return StorageUtil.delete(userInfoKey);
   };
 

@@ -21,7 +21,6 @@ const home = (state = initialStore, action) => {
         homeBanner: action.homeBanner,
       };
     case actionTypes.FETCH_HOME_LIST:
-      const size = action.homeList.size;
       return {
         ...state,
         page: 1,

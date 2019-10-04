@@ -2,7 +2,7 @@
  * Created by huangjunsheng on 2019-09-29
  */
 import React, {PureComponent} from 'react';
-import {FlatList, RefreshControl, View} from 'react-native';
+import {View} from 'react-native';
 import globalStyles from '../styles/globalStyles';
 import NavBar from '../component/NavBar';
 import {
@@ -12,10 +12,10 @@ import {
   fetchMyCollectCancelCollect,
 } from '../actions';
 import {getRealDP as dp} from '../utils/screenUtil';
-import Color from '../utils/Color';
 import {connect} from 'react-redux';
 import ArticleItemRow from '../component/ArticleItemRow';
 import ListFooter from '../component/ListFooter';
+import CommonFlatList from '../component/CommonFlatList';
 
 class CollectScreen extends PureComponent {
   constructor(props) {
@@ -76,28 +76,19 @@ class CollectScreen extends PureComponent {
   }
 
   render() {
-    const {navigation, dataSource, themeColor} = this.props;
+    const {navigation, dataSource} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar title={'我的收藏'} navigation={navigation} />
-        <FlatList
+        <CommonFlatList
           data={dataSource}
           keyExtractor={item => item.id.toString()}
           renderItem={this.renderItem}
           ListHeaderComponent={() => <View style={{height: dp(20)}} />}
           ListFooterComponent={this.renderFooter}
           onEndReached={this.onEndReached}
-          onEndReachedThreshold={0.2}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.isRefreshing}
-              onRefresh={this.onRefresh}
-              tintColor={themeColor}
-              colors={[themeColor]}
-              title="玩命加载中..."
-              titleColor={Color.TEXT_LIGHT}
-            />
-          }
+          isRefreshing={this.state.isRefreshing}
+          toRefresh={this.onRefresh}
         />
       </View>
     );

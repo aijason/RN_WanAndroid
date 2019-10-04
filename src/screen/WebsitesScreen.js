@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {View, FlatList, Text, StyleSheet, RefreshControl} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import globalStyles from '../styles/globalStyles';
 import NavBar from '../component/NavBar';
@@ -9,6 +9,7 @@ import Color from '../utils/Color';
 import {getChapterBgColor} from '../utils/Utility';
 import Touchable from '../component/Touchable';
 import Icon from 'react-native-vector-icons/Ionicons';
+import CommonFlatList from '../component/CommonFlatList';
 
 /**
  * 常用网站
@@ -55,28 +56,19 @@ class WebsitesScreen extends PureComponent {
   renderSeparator = () => <View style={{height: dp(30)}} />;
 
   render() {
-    const {navigation, websites, themeColor} = this.props;
+    const {navigation, websites} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar title={'常用网站'} navigation={navigation} />
-        <FlatList
+        <CommonFlatList
           data={websites}
-          numColumns={1}
           keyExtractor={item => item.id.toString()}
           renderItem={this.renderItem}
           ItemSeparatorComponent={this.renderSeparator}
           ListHeaderComponent={this.renderSeparator}
           ListFooterComponent={this.renderSeparator}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.isRefreshing}
-              onRefresh={this.onRefresh}
-              tintColor={themeColor}
-              colors={[themeColor]}
-              title="玩命加载中..."
-              titleColor={Color.TEXT_LIGHT}
-            />
-          }
+          isRefreshing={this.state.isRefreshing}
+          toRefresh={this.onRefresh}
         />
       </View>
     );

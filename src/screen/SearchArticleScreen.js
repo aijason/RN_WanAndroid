@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {View, FlatList, RefreshControl} from 'react-native';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
 import globalStyles from '../styles/globalStyles';
 import NavBar from '../component/NavBar';
@@ -10,10 +10,10 @@ import {
   fetchSearchArticleCancelCollect,
   fetchSearchArticleMore,
 } from '../actions';
-import Color from '../utils/Color';
 import ArticleItemRow from '../component/ArticleItemRow';
 import ListFooter from '../component/ListFooter';
 import {getRealDP as dp} from '../utils/screenUtil';
+import CommonFlatList from '../component/CommonFlatList';
 
 /**
  * 搜索文章结果页
@@ -80,7 +80,7 @@ class SearchArticleScreen extends PureComponent {
   }
 
   render() {
-    const {navigation, dataSource, themeColor} = this.props;
+    const {navigation, dataSource} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar
@@ -91,24 +91,15 @@ class SearchArticleScreen extends PureComponent {
             navigation.goBack();
           }}
         />
-        <FlatList
+        <CommonFlatList
           data={dataSource}
           keyExtractor={item => item.id.toString()}
           renderItem={this.renderItem}
           ListHeaderComponent={() => <View style={{height: dp(20)}} />}
           ListFooterComponent={this.renderFooter}
           onEndReached={this.onEndReached}
-          onEndReachedThreshold={0.2}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.isRefreshing}
-              onRefresh={this.onRefresh}
-              tintColor={themeColor}
-              colors={[themeColor]}
-              title="玩命加载中..."
-              titleColor={Color.TEXT_LIGHT}
-            />
-          }
+          isRefreshing={this.state.isRefreshing}
+          toRefresh={this.onRefresh}
         />
       </View>
     );

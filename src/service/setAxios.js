@@ -8,7 +8,7 @@ import AuthUtil from '../utils/AuthUtil';
 const BASE_URL = 'https://www.wanandroid.com/';
 const headers = {
   Accept: 'application/json;charset=utf-8',
-  'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+  'Content-Type': 'multipart/form-data;charset=utf-8',
 };
 
 /**
@@ -37,7 +37,11 @@ export function setAxios() {
     async config => {
       const Cookie = await AuthUtil.getCookie();
       if (config.method === 'post') {
-        config.data = qs.stringify(config.data);
+        let data = new FormData();
+        for (const i in config.data) {
+          data.append(i, config.data[i]);
+        }
+        config.data = data;
       }
       if (config.url !== 'user/login' && Cookie) {
         config.headers = {Cookie};
@@ -49,15 +53,16 @@ export function setAxios() {
     },
   );
   axios.interceptors.response.use(
-    response => {
+    async response => {
       const {data} = response;
-      handleShowResponseLog(response);
+      await handleShowResponseLog(response);
       if (data.errorCode === 0) {
         return Promise.resolve(data);
       }
       return Promise.reject(data.errorMsg || '请求失败');
     },
     err => {
+      console.log('err', err);
       if (err && err.response) {
         switch (err.response.status) {
           case 400:

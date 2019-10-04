@@ -2,7 +2,7 @@
  * Created by huangjunsheng on 2019-09-16
  */
 import React, {PureComponent} from 'react';
-import {View, Text, FlatList, RefreshControl, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import NavBar from '../component/NavBar';
@@ -12,6 +12,7 @@ import {fetchSystemData} from '../actions';
 import {getRealDP as dp} from '../utils/screenUtil';
 import {getChapterBgColor} from '../utils/Utility';
 import Touchable from '../component/Touchable';
+import CommonFlatList from '../component/CommonFlatList';
 
 /**
  * 知识体系
@@ -76,7 +77,7 @@ class SystemScreen extends PureComponent {
   }
 
   render() {
-    const {navigation, systemData, themeColor} = this.props;
+    const {navigation, systemData} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar
@@ -87,21 +88,13 @@ class SystemScreen extends PureComponent {
           onLeftPress={() => navigation.toggleDrawer()}
           onRightPress={() => navigation.navigate('Search')}
         />
-        <FlatList
+        <CommonFlatList
           data={systemData}
           keyExtractor={item => item.id.toString()}
-          ListHeaderComponent={() => <View style={{height: dp(20)}} />}
           renderItem={this.renderItem}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.isRefreshing}
-              onRefresh={this.onRefresh}
-              tintColor={themeColor}
-              colors={[themeColor]}
-              title="玩命加载中..."
-              titleColor={Color.TEXT_LIGHT}
-            />
-          }
+          ListHeaderComponent={() => <View style={{height: dp(20)}} />}
+          isRefreshing={this.state.isRefreshing}
+          toRefresh={this.onRefresh}
         />
       </View>
     );

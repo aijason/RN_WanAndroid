@@ -46,9 +46,7 @@ const feedBackBackground = TouchableNativeFeedback.Ripple(
 );
 
 /**
- * 作者：黄俊生
- * 组件名称：NavBar 导航头组件
- * 注意事项：
+ * NavBar 导航头组件
  */
 class NavBar extends PureComponent {
   constructor(props) {

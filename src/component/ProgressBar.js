@@ -13,9 +13,7 @@ const defaultProps = {
 };
 
 /**
- * 作者：黄俊生
- * 组件名称：ProgressBar 用于WebView展示时上方进度条
- * 注意事项：
+ * ProgressBar 用于WebView展示时上方进度条
  */
 class ProgressBar extends PureComponent {
   constructor(props) {

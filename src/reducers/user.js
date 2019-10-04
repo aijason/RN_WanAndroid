@@ -42,7 +42,10 @@ const user = (state = initialStore, action) => {
         isLogin: false,
       };
     case actionTypes.FETCH_TO_LOGOUT:
-      return initialStore;
+      return {
+        ...state,
+        isLogin: false,
+      };
     case actionTypes.CHANGE_THEME_COLOR:
       return {
         ...state,
