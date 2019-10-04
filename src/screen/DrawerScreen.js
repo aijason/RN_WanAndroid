@@ -57,7 +57,9 @@ class DrawerScreen extends PureComponent {
   async onShare() {
     try {
       await Share.share({
-        message: '分享一个使用React Native开发的玩安卓应用，点击下载：',
+        message:
+          '分享一个使用React Native开发的玩安卓应用，' +
+          '点击下载：https://github.com/aijason/RN_WanAndroid/raw/master/app/release/RN_WanAndroid-release.apk',
       });
     } catch (error) {
       alert(error.message);
