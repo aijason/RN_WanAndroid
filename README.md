@@ -44,9 +44,11 @@
 
 ## 主要开源框架
 
- - [@react-native-community/async-storage](https://github.com/react-native-community/async-storage)
  - [axios](https://github.com/axios/axios)
+ - [redux](https://github.com/reduxjs/redux)
  - [react-native](https://github.com/facebook/react-native)
+ - [react-redux](https://github.com/reduxjs/react-redux)
+ - [redux-thunk](https://github.com/reduxjs/redux-thunk)
  - [react-native-gesture-handler](https://github.com/kmagiera/react-native-gesture-handler)
  - [react-native-reanimated](https://github.com/kmagiera/react-native-reanimated)
  - [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen)
@@ -57,9 +59,29 @@
  - [react-navigation-drawer](https://github.com/react-navigation/drawer)
  - [react-navigation-stack](https://github.com/react-navigation/stack)
  - [react-navigation-tabs](https://github.com/react-navigation/tabs)
- - [react-redux](https://github.com/reduxjs/react-redux)
- - [redux](https://github.com/reduxjs/redux)
- - [redux-thunk](https://github.com/reduxjs/redux-thunk)
+ - [@react-native-community/async-storage](https://github.com/react-native-community/async-storage)
+
+ ## Thanks
+
+**感谢所有优秀的开源项目 ^_^** 。
+
+## Statement
+**项目中的 API 均来自于 [www.wanandroid.com](http://www.wanandroid.com/) 网站，纯属学习交流使用，不得用于商业用途。**
  
- 
- 
+ ## LICENSE
+
+```
+Copyright 2019 aijason 
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
