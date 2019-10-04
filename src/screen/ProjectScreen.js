@@ -6,19 +6,21 @@ import {View} from 'react-native';
 import {connect} from 'react-redux';
 import NavBar from '../component/NavBar';
 import globalStyles from '../styles/globalStyles';
-import {fetchProjectTabs} from '../actions';
+import {fetchProjectTabs, updateArticleLoading} from '../actions';
 import ArticleTabComponent from '../component/ArticleTabComponent';
+import LoadingView from '../component/LoadingView';
 
 /**
  * 项目
  */
 class ProjectScreen extends PureComponent {
   componentDidMount() {
+    updateArticleLoading(true);
     fetchProjectTabs();
   }
 
   render() {
-    const {navigation, projectTabs} = this.props;
+    const {navigation, projectTabs, isShowLoading} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar
@@ -33,6 +35,7 @@ class ProjectScreen extends PureComponent {
           articleTabs={projectTabs}
           navigation={navigation}
         />
+        <LoadingView isShowLoading={isShowLoading} />
       </View>
     );
   }
@@ -41,6 +44,7 @@ class ProjectScreen extends PureComponent {
 const mapStateToProps = state => {
   return {
     projectTabs: state.project.projectTabs,
+    isShowLoading: state.wxArticle.isShowLoading,
   };
 };
 

@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {View} from 'react-native';
+import {Share, View} from 'react-native';
 import WebView from 'react-native-webview';
 import ProgressBar from '../component/ProgressBar';
 import globalStyles from '../styles/globalStyles';
@@ -14,6 +14,17 @@ class WebViewScreen extends PureComponent {
     this.state = {
       progress: 0,
     };
+    this.onShare = this.onShare.bind(this);
+  }
+
+  async onShare(title, url) {
+    try {
+      await Share.share({
+        message: `${title}：${url}`,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   render() {
@@ -22,7 +33,14 @@ class WebViewScreen extends PureComponent {
     const title = navigation.getParam('title', '');
     return (
       <View style={globalStyles.container}>
-        <NavBar title={title} navigation={navigation} />
+        <NavBar
+          title={title}
+          navigation={navigation}
+          rightIcon={'md-share'}
+          onRightPress={() => {
+            this.onShare(title, url);
+          }}
+        />
         <ProgressBar progress={this.state.progress} />
         <WebView
           source={{uri: url}}

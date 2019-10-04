@@ -112,6 +112,13 @@ export function getProjectTabsAction(projectTabs) {
   };
 }
 
+export function getArticleLoadingAction(isShowLoading) {
+  return {
+    type: actionTypes.FETCH_ARTICLE_LOADING,
+    isShowLoading,
+  };
+}
+
 export function getOftenUsedWebsitesAction(websites) {
   return {
     type: actionTypes.FETCH_OFTEN_USED_WEBSITES,

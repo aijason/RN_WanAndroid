@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import globalStyles from '../styles/globalStyles';
-import {fetchWxArticleList} from '../actions';
+import {fetchWxArticleList, updateArticleLoading} from '../actions';
 import {getRealDP as dp} from '../utils/screenUtil';
 import ArticleItemRow from './ArticleItemRow';
 import {connect} from 'react-redux';
@@ -44,6 +44,7 @@ class ArticleFlatList extends PureComponent {
     const {chapterId} = this.props;
     fetchWxArticleList(chapterId)
       .then(res => {
+        updateArticleLoading(false);
         this.setState({dataSource: res.datas});
       })
       .catch(e => {});

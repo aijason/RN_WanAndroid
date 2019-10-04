@@ -5,6 +5,7 @@ import actionTypes from '../actions/actionType';
 
 const initialStore = {
   articleTabs: [],
+  isShowLoading: false,
 };
 
 const wxArticle = (state = initialStore, action) => {
@@ -14,6 +15,11 @@ const wxArticle = (state = initialStore, action) => {
         ...state,
         articleTabs: action.articleTabs,
       };
+    case actionTypes.FETCH_ARTICLE_LOADING:
+      return {
+        ...state,
+        isShowLoading: action.isShowLoading,
+      }
     default:
       return state;
   }

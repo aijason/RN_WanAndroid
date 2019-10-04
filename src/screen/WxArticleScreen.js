@@ -7,8 +7,9 @@ import {connect} from 'react-redux';
 import NavBar from '../component/NavBar';
 import Color from '../utils/Color';
 import globalStyles from '../styles/globalStyles';
-import {fetchWxArticleTabs} from '../actions';
+import {fetchWxArticleTabs, updateArticleLoading} from '../actions';
 import ArticleTabComponent from '../component/ArticleTabComponent';
+import LoadingView from '../component/LoadingView';
 
 /**
  * 微信公众号
@@ -20,11 +21,12 @@ class WxArticleScreen extends PureComponent {
   }
 
   componentDidMount() {
+    updateArticleLoading(true);
     fetchWxArticleTabs();
   }
 
   render() {
-    const {navigation, articleTabs} = this.props;
+    const {navigation, articleTabs, isShowLoading} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar
@@ -40,6 +42,7 @@ class WxArticleScreen extends PureComponent {
           articleTabs={articleTabs}
           navigation={navigation}
         />
+        <LoadingView isShowLoading={isShowLoading} />
       </View>
     );
   }
@@ -48,6 +51,7 @@ class WxArticleScreen extends PureComponent {
 const mapStateToProps = state => {
   return {
     articleTabs: state.wxArticle.articleTabs,
+    isShowLoading: state.wxArticle.isShowLoading,
   };
 };
 

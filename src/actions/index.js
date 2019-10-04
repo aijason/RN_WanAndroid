@@ -32,7 +32,6 @@ import {
   getToLogoutAction,
   getSystemDataAction,
   getWxArticleTabsAction,
-  getWxArticleListAction,
   getGuideDataAction,
   updateSelectIndexAction,
   getProjectTabsAction,
@@ -51,6 +50,7 @@ import {
   getMyCollectAddCollectAction,
   getSearchArticleAddCollectAction,
   getSearchArticleCancelCollectAction,
+  getArticleLoadingAction,
 } from './action-creator';
 import {showToast} from '../utils/Utility';
 import AuthUtil from '../utils/AuthUtil';
@@ -132,7 +132,6 @@ export function fetchWxArticleList(chapterId, page = 1) {
   return new Promise(async (resolve, reject) => {
     await getWxArticleList(chapterId, page)
       .then(res => {
-        // store.dispatch(getWxArticleListAction(res.data));
         resolve(res.data);
       })
       .catch(e => {
@@ -155,6 +154,10 @@ export function fetchProjectTabs() {
   getProjectTree()
     .then(res => store.dispatch(getProjectTabsAction(res.data)))
     .catch(e => {});
+}
+
+export function updateArticleLoading(isShowLoading) {
+  store.dispatch(getArticleLoadingAction(isShowLoading));
 }
 
 export async function fetchOftenUsedWebsites() {
