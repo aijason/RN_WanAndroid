@@ -26,7 +26,7 @@ class SearchScreen extends PureComponent {
   }
 
   render() {
-    const {navigation, hotKey, themeColor} = this.props;
+    const {navigation, hotKey} = this.props;
     return (
       <View style={globalStyles.container}>
         <NavBar

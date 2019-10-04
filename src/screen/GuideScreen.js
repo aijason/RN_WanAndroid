@@ -2,13 +2,13 @@
  * Created by huangjunsheng on 2019-09-16
  */
 import React, {PureComponent} from 'react';
-import {View, Text, FlatList, RefreshControl, StyleSheet} from 'react-native';
+import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import NavBar from '../component/NavBar';
 import Color from '../utils/Color';
 import globalStyles from '../styles/globalStyles';
 import {fetchGuideData, updateSelectIndex} from '../actions';
-import {DEVICE_HEIGHT, getRealDP as dp} from '../utils/screenUtil';
+import {getRealDP as dp} from '../utils/screenUtil';
 import Touchable from '../component/Touchable';
 import {getChapterBgColor} from '../utils/Utility';
 

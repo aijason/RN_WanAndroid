@@ -14,6 +14,7 @@ import ArticleItemRow from '../component/ArticleItemRow';
 import ListFooter from '../component/ListFooter';
 import {getRealDP as dp} from '../utils/screenUtil';
 import CommonFlatList from '../component/CommonFlatList';
+import {showToast} from '../utils/Utility';
 
 /**
  * 搜索文章结果页
@@ -52,12 +53,16 @@ class SearchArticleScreen extends PureComponent {
   }
 
   renderItem({item, index}) {
-    const {navigation} = this.props;
+    const {navigation, isLogin} = this.props;
     return (
       <ArticleItemRow
         navigation={navigation}
         item={item}
         onCollectPress={() => {
+          if (!isLogin) {
+            showToast('请先登录');
+            return navigation.navigate('Login');
+          }
           if (item.collect) {
             fetchSearchArticleCancelCollect(item.id, index);
           } else {
@@ -113,6 +118,7 @@ const mapStateToProps = state => {
     isRenderFooter: state.search.isRenderFooter,
     isFullData: state.search.isFullData,
     themeColor: state.user.themeColor,
+    isLogin: state.user.isLogin,
   };
 };
 

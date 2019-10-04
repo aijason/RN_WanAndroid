@@ -53,6 +53,7 @@ class LoginScreen extends PureComponent {
             <View style={styles.textInputWrapper}>
               <Icon name={'md-person'} size={dp(50)} color={themeColor} />
               <TextInput
+                autoFocus
                 placeholder={'用户名'}
                 placeholderTextColor={Color.TEXT_LIGHT}
                 autoCapitalize={'none'}
