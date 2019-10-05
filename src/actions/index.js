@@ -246,7 +246,7 @@ export function fetchMyCollectCancelCollect(id, originId, index) {
 export function fetchMyCollectAddCollect(id, index) {
   addCollectArticle(id)
     .then(res => {
-      // showToast('已收藏');
+      showToast('已收藏');
       store.dispatch(getMyCollectAddCollectAction(index));
     })
     .catch(e => {});
