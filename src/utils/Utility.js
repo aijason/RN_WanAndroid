@@ -79,7 +79,6 @@ export function getThemeColorDataSource() {
     {name: '暗淡的灰色', color: '#696969'},
     {name: '粉红色', color: '#FFC0CB'},
     {name: '深粉色', color: '#FF1493'},
-    {name: '纯红色', color: '#FF0000'},
     {name: '兰花的紫色', color: '#DA70D6'},
     {name: '适中的紫色', color: '#9370DB'},
     {name: '紫色', color: '#800080'},
