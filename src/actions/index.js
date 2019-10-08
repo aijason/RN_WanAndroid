@@ -19,6 +19,8 @@ import {
   addCollectArticle,
   cancelCollectArticle,
   cancelMyCollectArticle,
+  getMyCoinList,
+  getMyCoinInfo,
 } from '../api';
 import store from '../store';
 import {
@@ -51,6 +53,9 @@ import {
   getSearchArticleAddCollectAction,
   getSearchArticleCancelCollectAction,
   getArticleLoadingAction,
+  getMyCoinListAction,
+  getMyCoinListMoreAction,
+  getMyCoinInfoAction,
 } from './action-creator';
 import {showToast} from '../utils/Utility';
 import AuthUtil from '../utils/AuthUtil';
@@ -92,7 +97,7 @@ export function fetchToLogin(params, navigation) {
       showToast('登录成功');
     })
     .catch(e => {
-      showToast('登录失败');
+      showToast(e);
       store.dispatch(getToLoginFailureAction());
     });
 }
@@ -266,5 +271,23 @@ export function fetchSearchArticleAddCollect(id, index) {
 export function fetchSearchArticleCancelCollect(id, index) {
   cancelCollectArticle(id)
     .then(res => store.dispatch(getSearchArticleCancelCollectAction(index)))
+    .catch(e => {});
+}
+
+export async function fetchMyCoinList(page) {
+  await getMyCoinList(page)
+    .then(res => store.dispatch(getMyCoinListAction(res.data)))
+    .catch(e => {});
+}
+
+export function fetchMyCoinListMore(page) {
+  getMyCoinList(page + 1)
+    .then(res => store.dispatch(getMyCoinListMoreAction(res.data)))
+    .catch(e => {});
+}
+
+export function fetchMyCoinInfo() {
+  getMyCoinInfo()
+    .then(res => store.dispatch(getMyCoinInfoAction(res.data)))
     .catch(e => {});
 }

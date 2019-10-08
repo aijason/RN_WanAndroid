@@ -42,6 +42,10 @@ const actionTypes = {
   FETCH_COLLECT_ARTICLE_MORE: 'FETCH_COLLECT_ARTICLE_MORE', // 请求收藏文章列表上拉加载更多
   FETCH_MYCOLLECT_CANCEL_COLLECT: 'FETCH_MYCOLLECT_CANCEL_COLLECT', // 我的收藏页面取消收藏
   FETCH_MYCOLLECT_ADD_COLLECT: 'FETCH_MYCOLLECT_ADD_COLLECT', // 我的收藏页面收藏
+  // COIN
+  FETCH_MY_COIN_LIST: 'FETCH_MY_COIN_LIST', // 请求我的积分明细列表
+  FETCH_MY_COIN_LIST_MORE: 'FETCH_MY_COIN_LIST_MORE', // 请求我的积分明细列表上拉加载更多
+  FETCH_MY_COIN_INFO: 'FETCH_MY_COIN_INFO', // 获取个人积分，需要登录后访问
 };
 
 export default actionTypes;

@@ -105,3 +105,12 @@ export function getSearchArticle(k, page = 0) {
 export function getCollectArticleList(page = 0) {
   return httpUtil.get(`lg/collect/list/${page}/json`);
 }
+
+// 获取个人积分获取列表，需要登录后访问
+export function getMyCoinList(page = 1) {
+  return httpUtil.get(`lg/coin/list/${page}/json`);
+}
+
+export function getMyCoinInfo() {
+  return httpUtil.get('lg/coin/userinfo/json');
+}

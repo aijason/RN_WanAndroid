@@ -22,6 +22,7 @@ import SearchScreen from './screen/SearchScreen';
 import SearchArticleScreen from './screen/SearchArticleScreen';
 import AboutScreen from './screen/AboutScreen';
 import CollectScreen from './screen/CollectScreen';
+import CoinDetailScreen from './screen/CoinDetailScreen';
 
 const TabScreens = createBottomTabNavigator(
   {
@@ -39,7 +40,7 @@ const TabScreens = createBottomTabNavigator(
       showLabel: false,
       showIcon: false,
       style: {
-        height: dp(90),
+        height: dp(100),
         borderTopWidth: 0,
       },
     },
@@ -73,6 +74,7 @@ const RootStack = createStackNavigator(
     SearchArticle: SearchArticleScreen,
     About: AboutScreen,
     Collect: CollectScreen,
+    CoinDetail: CoinDetailScreen,
   },
   {
     initialRouteName: 'Home',

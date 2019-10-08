@@ -10,6 +10,7 @@ import guide from './guide';
 import project from './project';
 import search from './search';
 import collect from './collect';
+import coin from './coin';
 
 export default combineReducers({
   home,
@@ -20,4 +21,5 @@ export default combineReducers({
   project,
   search,
   collect,
+  coin,
 });

@@ -13,6 +13,7 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
   Alert,
+  ScrollView,
 } from 'react-native';
 import globalStyles from '../styles/globalStyles';
 import {
@@ -27,7 +28,6 @@ import images from '../images';
 import {connect} from 'react-redux';
 import {changeThemeColor, fetchToLogout} from '../actions';
 import {getThemeColorDataSource, showToast} from '../utils/Utility';
-import {ScrollView} from 'react-navigation';
 
 /**
  * 抽屉
@@ -41,6 +41,7 @@ class DrawerScreen extends PureComponent {
     };
     // 抽屉item数据源
     this.drawerData = [
+      {iconName: 'md-trending-up', title: '我的积分'},
       {iconName: 'md-heart', title: '我的收藏'},
       {iconName: 'md-globe', title: '常用网站'},
       {iconName: 'md-color-palette', title: '主题'},
@@ -69,6 +70,13 @@ class DrawerScreen extends PureComponent {
   handleDrawerItemPress(type) {
     const {navigation, isLogin} = this.props;
     switch (type) {
+      case '我的积分':
+        if (!isLogin) {
+          navigation.navigate('Login');
+          return showToast('请先登录');
+        }
+        navigation.navigate('CoinDetail');
+        break;
       case '我的收藏':
         if (!isLogin) {
           navigation.navigate('Login');

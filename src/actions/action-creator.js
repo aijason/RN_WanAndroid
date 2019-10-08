@@ -208,3 +208,23 @@ export function getSearchArticleCancelCollectAction(index) {
     index,
   };
 }
+
+export function getMyCoinListAction(coinList) {
+  return {
+    type: actionTypes.FETCH_MY_COIN_LIST,
+    coinList,
+  };
+}
+
+export function getMyCoinListMoreAction(coinList) {
+  return {
+    type: actionTypes.FETCH_MY_COIN_LIST_MORE,
+    coinList,
+  };
+}
+export function getMyCoinInfoAction(coinInfo) {
+  return {
+    type: actionTypes.FETCH_MY_COIN_INFO,
+    coinInfo,
+  };
+}
