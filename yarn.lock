@@ -5251,10 +5251,10 @@ react-native-webview@^7.4.0:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-react-native@0.61.1:
-  version "0.61.1"
-  resolved "https://registry.npm.taobao.org/react-native/download/react-native-0.61.1.tgz#ac2559f78f9e689356fedfa93159026a25313d7d"
-  integrity sha1-rCVZ94+eaJNW/t+pMVkCaiUxPX0=
+react-native@0.61.2:
+  version "0.61.2"
+  resolved "https://registry.npm.taobao.org/react-native/download/react-native-0.61.2.tgz#987b91b063557f8ebec803fdfea2044a24bdbe4d"
+  integrity sha1-mHuRsGNVf46+yAP9/qIESiS9vk0=
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^3.0.0-alpha.1"
