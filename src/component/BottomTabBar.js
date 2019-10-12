@@ -49,13 +49,8 @@ class BottomTabBar extends PureComponent {
     const tabBarColor = focused ? themeColor : Color.TEXT_LIGHT;
     const content = (
       <View style={styles.tabBarWrapper}>
-        <View style={{
-          width: dp(65),
-          height: dp(65),
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Icon name={tabBarIconName} size={tabBarIconSize} color={tabBarColor} />
+        <View style={styles.iconWrapper}>
+          <Icon name={tabBarIconName} size={tabBarIconSize} color={tabBarColor} />
         </View>
         <Text style={[styles.tabBarLabel, {color: tabBarColor}]}>
           {tabBarLabel}
@@ -91,6 +86,12 @@ const styles = StyleSheet.create({
   },
   tabBarLabel: {
     fontSize: dp(20),
+  },
+  iconWrapper: {
+    width: dp(65),
+    height: dp(65),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
