@@ -50,7 +50,11 @@ class BottomTabBar extends PureComponent {
     const content = (
       <View style={styles.tabBarWrapper}>
         <View style={styles.iconWrapper}>
-          <Icon name={tabBarIconName} size={tabBarIconSize} color={tabBarColor} />
+          <Icon
+            name={tabBarIconName}
+            size={tabBarIconSize}
+            color={tabBarColor}
+          />
         </View>
         <Text style={[styles.tabBarLabel, {color: tabBarColor}]}>
           {tabBarLabel}
