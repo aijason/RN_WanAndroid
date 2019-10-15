@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Touchable from '../../component/Touchable';
 import {switchAPPLanguage} from '../../actions';
-import {i18n} from '../../utils/Utility';
+import {getI18nText, i18n} from '../../utils/Utility';
 
 /**
  * 多语言设置
@@ -46,7 +46,7 @@ class LanguageScreen extends PureComponent {
     ];
     return (
       <View style={globalStyles.container}>
-        <NavBar title={i18n('language')} navigation={navigation} />
+        <NavBar title={i18n(getI18nText().language)} navigation={navigation} />
         {languages.map(el => this.renderLanguageItem(el))}
       </View>
     );
