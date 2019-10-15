@@ -15,19 +15,19 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import globalStyles from '../styles/globalStyles';
+import globalStyles from '../../styles/globalStyles';
 import {
   DEVICE_HEIGHT,
   DEVICE_WIDTH,
   getRealDP as dp,
-} from '../utils/screenUtil';
-import Color from '../utils/Color';
-import Touchable from '../component/Touchable';
+} from '../../utils/screenUtil';
+import Color from '../../utils/Color';
+import Touchable from '../../component/Touchable';
 import Icon from 'react-native-vector-icons/Ionicons';
-import images from '../images';
+import images from '../../images';
 import {connect} from 'react-redux';
-import {changeThemeColor, fetchToLogout} from '../actions';
-import {getThemeColorDataSource, showToast} from '../utils/Utility';
+import {changeThemeColor, fetchToLogout} from '../../actions';
+import {getThemeColorDataSource, showToast} from '../../utils/Utility';
 
 /**
  * 抽屉
@@ -47,6 +47,7 @@ class DrawerScreen extends PureComponent {
       {iconName: 'md-color-palette', title: '主题'},
       {iconName: 'md-share', title: '分享'},
       {iconName: 'md-person', title: '关于作者'},
+      {iconName: 'md-settings', title: '设置'},
       {iconName: 'md-power', title: '退出登录'},
     ];
     this.renderHeader = this.renderHeader.bind(this);
@@ -95,6 +96,9 @@ class DrawerScreen extends PureComponent {
         break;
       case '关于作者':
         navigation.navigate('About');
+        break;
+      case '设置':
+        navigation.navigate('Setting');
         break;
       case '退出登录':
         Alert.alert(

@@ -4,13 +4,13 @@
 import React, {PureComponent} from 'react';
 import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import NavBar from '../component/NavBar';
-import Color from '../utils/Color';
-import globalStyles from '../styles/globalStyles';
-import {fetchGuideData, updateSelectIndex} from '../actions';
-import {getRealDP as dp} from '../utils/screenUtil';
-import Touchable from '../component/Touchable';
-import {getChapterBgColor} from '../utils/Utility';
+import NavBar from '../../component/NavBar';
+import Color from '../../utils/Color';
+import globalStyles from '../../styles/globalStyles';
+import {fetchGuideData, updateSelectIndex} from '../../actions';
+import {getRealDP as dp} from '../../utils/screenUtil';
+import Touchable from '../../component/Touchable';
+import {getChapterBgColor} from '../../utils/Utility';
 
 /**
  * 导航

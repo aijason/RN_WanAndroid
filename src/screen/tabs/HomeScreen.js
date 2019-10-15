@@ -10,15 +10,15 @@ import {
   fetchHomeCancelCollect,
   fetchHomeList,
   fetchHomeListMore,
-} from '../actions';
-import NavBar from '../component/NavBar';
-import Banner from '../component/Banner';
-import globalStyles from '../styles/globalStyles';
-import {getRealDP as dp} from '../utils/screenUtil';
-import ListFooter from '../component/ListFooter';
-import ArticleItemRow from '../component/ArticleItemRow';
-import {showToast} from '../utils/Utility';
-import CommonFlatList from '../component/CommonFlatList';
+} from '../../actions';
+import NavBar from '../../component/NavBar';
+import Banner from '../../component/Banner';
+import globalStyles from '../../styles/globalStyles';
+import {getRealDP as dp} from '../../utils/screenUtil';
+import ListFooter from '../../component/ListFooter';
+import ArticleItemRow from '../../component/ArticleItemRow';
+import {showToast} from '../../utils/Utility';
+import CommonFlatList from '../../component/CommonFlatList';
 
 /**
  * 首页

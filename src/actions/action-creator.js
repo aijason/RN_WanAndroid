@@ -222,9 +222,17 @@ export function getMyCoinListMoreAction(coinList) {
     coinList,
   };
 }
+
 export function getMyCoinInfoAction(coinInfo) {
   return {
     type: actionTypes.FETCH_MY_COIN_INFO,
     coinInfo,
+  };
+}
+
+export function getSwitchAPPLanguageAction(language) {
+  return {
+    type: actionTypes.SWITCH_APP_LANGUAGE,
+    language,
   };
 }

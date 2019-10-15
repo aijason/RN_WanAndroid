@@ -3,19 +3,19 @@
  */
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
-import globalStyles from '../styles/globalStyles';
-import NavBar from '../component/NavBar';
+import globalStyles from '../../styles/globalStyles';
+import NavBar from '../../component/NavBar';
 import {
   fetchCollectArticleList,
   fetchCollectArticleMore,
   fetchMyCollectAddCollect,
   fetchMyCollectCancelCollect,
-} from '../actions';
-import {getRealDP as dp} from '../utils/screenUtil';
+} from '../../actions';
+import {getRealDP as dp} from '../../utils/screenUtil';
 import {connect} from 'react-redux';
-import ArticleItemRow from '../component/ArticleItemRow';
-import ListFooter from '../component/ListFooter';
-import CommonFlatList from '../component/CommonFlatList';
+import ArticleItemRow from '../../component/ArticleItemRow';
+import ListFooter from '../../component/ListFooter';
+import CommonFlatList from '../../component/CommonFlatList';
 
 class CollectScreen extends PureComponent {
   constructor(props) {

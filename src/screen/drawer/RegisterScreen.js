@@ -3,13 +3,13 @@
  */
 import React, {PureComponent} from 'react';
 import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
-import NavBar from '../component/NavBar';
-import {DEVICE_WIDTH, getRealDP as dp} from '../utils/screenUtil';
-import Color from '../utils/Color';
-import {showToast} from '../utils/Utility';
-import {fetchToRegister} from '../actions';
+import NavBar from '../../component/NavBar';
+import {DEVICE_WIDTH, getRealDP as dp} from '../../utils/screenUtil';
+import Color from '../../utils/Color';
+import {showToast} from '../../utils/Utility';
+import {fetchToRegister} from '../../actions';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Touchable from '../component/Touchable';
+import Touchable from '../../component/Touchable';
 import {connect} from 'react-redux';
 
 /**

@@ -7,7 +7,7 @@ import AppNavigator from './src';
 import {setAxios} from './src/service/setAxios';
 import store from './src/store';
 import AuthUtil from './src/utils/AuthUtil';
-import {toInitialAuthInfo} from './src/actions';
+import {switchAPPLanguage, toInitialAuthInfo} from './src/actions';
 import Toast from './src/utils/Toast';
 
 class App extends PureComponent {
@@ -27,6 +27,10 @@ class App extends PureComponent {
   async initialInfo() {
     const userInfo = await AuthUtil.getUserInfo();
     const themeColor = await AuthUtil.getThemeColor();
+    const language = await AuthUtil.getAppLanguage();
+    if (language) {
+      await switchAPPLanguage(language); // 设置app语言环境
+    }
     const authInfo = pickBy(
       {
         isLogin: !!userInfo,

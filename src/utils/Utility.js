@@ -1,6 +1,7 @@
-import {Platform, ToastAndroid} from 'react-native';
+import {Platform, ToastAndroid, Text} from 'react-native';
 import {getRealDP as dp, getStatusBarHeight, isAndroid} from './screenUtil';
 import Color from './Color';
+import LanguageUtil from './LanguageUtil';
 
 /**
  * 吐司方法
@@ -84,4 +85,8 @@ export function getThemeColorDataSource() {
     {name: '紫色', color: '#800080'},
     {name: '纯黑', color: '#000000'},
   ];
+}
+
+export function i18n(Text) {
+  return LanguageUtil.t(Text);
 }

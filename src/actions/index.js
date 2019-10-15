@@ -56,9 +56,11 @@ import {
   getMyCoinListAction,
   getMyCoinListMoreAction,
   getMyCoinInfoAction,
+  getSwitchAPPLanguageAction,
 } from './action-creator';
 import {showToast} from '../utils/Utility';
 import AuthUtil from '../utils/AuthUtil';
+import LanguageUtil from '../utils/LanguageUtil';
 
 export function fetchHomeBanner() {
   getHomeBanner().then(res => store.dispatch(getHomeBannerAction(res.data)));
@@ -290,4 +292,11 @@ export function fetchMyCoinInfo() {
   getMyCoinInfo()
     .then(res => store.dispatch(getMyCoinInfoAction(res.data)))
     .catch(e => {});
+}
+
+// 切换应用语言环境
+export async function switchAPPLanguage(language) {
+  await AuthUtil.saveAppLanguage(language);
+  LanguageUtil.locale = language;
+  store.dispatch(getSwitchAPPLanguageAction(language));
 }

@@ -3,15 +3,15 @@
  */
 import React, {PureComponent} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import Color from '../utils/Color';
-import NavBar from '../component/NavBar';
-import globalStyles from '../styles/globalStyles';
+import Color from '../../utils/Color';
+import NavBar from '../../component/NavBar';
+import globalStyles from '../../styles/globalStyles';
 import {
   DEVICE_WIDTH,
   getBottomSpace,
   getRealDP as dp,
-} from '../utils/screenUtil';
-import images from '../images';
+} from '../../utils/screenUtil';
+import images from '../../images';
 import {connect} from 'react-redux';
 
 /**

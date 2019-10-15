@@ -21,6 +21,7 @@ const initialStore = {
     username: '',
   }, // 用户信息
   themeColor: Color.THEME, // 用户设置APP主题色
+  language: 'zhHans', // APP默认语言
 };
 
 const user = (state = initialStore, action) => {
@@ -55,6 +56,11 @@ const user = (state = initialStore, action) => {
       return {
         ...state,
         ...action.initialInfo,
+      };
+    case actionTypes.SWITCH_APP_LANGUAGE:
+      return {
+        ...state,
+        language: action.language,
       };
     default:
       return state;

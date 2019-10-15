@@ -4,17 +4,17 @@
 import React, {PureComponent} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {connect} from 'react-redux';
-import globalStyles from '../styles/globalStyles';
-import NavBar from '../component/NavBar';
-import {fetchMyCoinInfo, fetchMyCoinList, fetchMyCoinListMore} from '../actions';
-import CommonFlatList from '../component/CommonFlatList';
+import globalStyles from '../../styles/globalStyles';
+import NavBar from '../../component/NavBar';
+import {fetchMyCoinInfo, fetchMyCoinList, fetchMyCoinListMore} from '../../actions';
+import CommonFlatList from '../../component/CommonFlatList';
 import {
   DEVICE_WIDTH,
   getBottomSpace,
   getRealDP as dp,
-} from '../utils/screenUtil';
-import ListFooter from '../component/ListFooter';
-import Color from '../utils/Color';
+} from '../../utils/screenUtil';
+import ListFooter from '../../component/ListFooter';
+import Color from '../../utils/Color';
 /**
  * 积分明细列表
  */

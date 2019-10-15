@@ -6,8 +6,17 @@ import StorageUtil from './storageUtil';
 const userInfoKey = '@userInfo';
 const cookieKey = '@cookie';
 const themeColorKey = '@themeColor';
+const appLanguage = '@appLanguage';
 
 class AuthUtil {
+  static saveAppLanguage = language => {
+    return StorageUtil.save(appLanguage, language);
+  };
+
+  static getAppLanguage = () => {
+    return StorageUtil.get(appLanguage);
+  };
+
   static saveThemeColor = color => {
     return StorageUtil.save(themeColorKey, color);
   };

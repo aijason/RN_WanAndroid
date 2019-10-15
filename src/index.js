@@ -7,22 +7,24 @@ import {getRealDP as dp} from './utils/screenUtil';
 // import StackViewStyleInterpolator from 'react-navigation-stack/lib/commonjs/views/StackView/StackViewStyleInterpolator';
 import BottomTabBar from './component/BottomTabBar';
 // Screen
-import HomeScreen from './screen/HomeScreen';
-import SystemScreen from './screen/SystemScreen';
-import WxArticleScreen from './screen/WxArticleScreen';
-import GuideScreen from './screen/GuideScreen';
-import ProjectScreen from './screen/ProjectScreen';
-import DrawerScreen from './screen/DrawerScreen';
+import HomeScreen from './screen/tabs/HomeScreen';
+import SystemScreen from './screen/tabs/SystemScreen';
+import WxArticleScreen from './screen/tabs/WxArticleScreen';
+import GuideScreen from './screen/tabs/GuideScreen';
+import ProjectScreen from './screen/tabs/ProjectScreen';
+import DrawerScreen from './screen/drawer/DrawerScreen';
 import WebViewScreen from './screen/WebViewScreen';
-import LoginScreen from './screen/LoginScreen';
-import RegisterScreen from './screen/RegisterScreen';
+import LoginScreen from './screen/drawer/LoginScreen';
+import RegisterScreen from './screen/drawer/RegisterScreen';
 import ArticleTabScreen from './screen/ArticleTabScreen';
 import WebsitesScreen from './screen/WebsitesScreen';
 import SearchScreen from './screen/SearchScreen';
 import SearchArticleScreen from './screen/SearchArticleScreen';
-import AboutScreen from './screen/AboutScreen';
-import CollectScreen from './screen/CollectScreen';
-import CoinDetailScreen from './screen/CoinDetailScreen';
+import AboutScreen from './screen/drawer/AboutScreen';
+import CollectScreen from './screen/drawer/CollectScreen';
+import CoinDetailScreen from './screen/drawer/CoinDetailScreen';
+import SettingScreen from './screen/drawer/SettingScreen';
+import LanguageScreen from './screen/drawer/LanguageScreen';
 
 const TabScreens = createBottomTabNavigator(
   {
@@ -75,6 +77,8 @@ const RootStack = createStackNavigator(
     About: AboutScreen,
     Collect: CollectScreen,
     CoinDetail: CoinDetailScreen,
+    Setting: SettingScreen,
+    Language: LanguageScreen,
   },
   {
     initialRouteName: 'Home',

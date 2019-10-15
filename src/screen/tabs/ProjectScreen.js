@@ -4,11 +4,11 @@
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import NavBar from '../component/NavBar';
-import globalStyles from '../styles/globalStyles';
-import {fetchProjectTabs, updateArticleLoading} from '../actions';
-import ArticleTabComponent from '../component/ArticleTabComponent';
-import LoadingView from '../component/LoadingView';
+import NavBar from '../../component/NavBar';
+import globalStyles from '../../styles/globalStyles';
+import {fetchProjectTabs, updateArticleLoading} from '../../actions';
+import ArticleTabComponent from '../../component/ArticleTabComponent';
+import LoadingView from '../../component/LoadingView';
 
 /**
  * 项目

@@ -4,12 +4,12 @@
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import NavBar from '../component/NavBar';
-import Color from '../utils/Color';
-import globalStyles from '../styles/globalStyles';
-import {fetchWxArticleTabs, updateArticleLoading} from '../actions';
-import ArticleTabComponent from '../component/ArticleTabComponent';
-import LoadingView from '../component/LoadingView';
+import NavBar from '../../component/NavBar';
+import Color from '../../utils/Color';
+import globalStyles from '../../styles/globalStyles';
+import {fetchWxArticleTabs, updateArticleLoading} from '../../actions';
+import ArticleTabComponent from '../../component/ArticleTabComponent';
+import LoadingView from '../../component/LoadingView';
 
 /**
  * 微信公众号

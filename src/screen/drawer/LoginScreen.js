@@ -1,13 +1,13 @@
 import React, {PureComponent} from 'react';
 import {StyleSheet, Text, TextInput, View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
-import NavBar from '../component/NavBar';
-import {DEVICE_WIDTH, getRealDP as dp} from '../utils/screenUtil';
-import Color from '../utils/Color';
-import {showToast} from '../utils/Utility';
-import {fetchToLogin} from '../actions';
+import NavBar from '../../component/NavBar';
+import {DEVICE_WIDTH, getRealDP as dp} from '../../utils/screenUtil';
+import Color from '../../utils/Color';
+import {showToast} from '../../utils/Utility';
+import {fetchToLogin} from '../../actions';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Touchable from '../component/Touchable';
+import Touchable from '../../component/Touchable';
 
 const propTypes = {};
 const defaultProps = {};

@@ -5,14 +5,14 @@ import React, {PureComponent} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import NavBar from '../component/NavBar';
-import Color from '../utils/Color';
-import globalStyles from '../styles/globalStyles';
-import {fetchSystemData} from '../actions';
-import {getRealDP as dp} from '../utils/screenUtil';
-import {getChapterBgColor} from '../utils/Utility';
-import Touchable from '../component/Touchable';
-import CommonFlatList from '../component/CommonFlatList';
+import NavBar from '../../component/NavBar';
+import Color from '../../utils/Color';
+import globalStyles from '../../styles/globalStyles';
+import {fetchSystemData} from '../../actions';
+import {getRealDP as dp} from '../../utils/screenUtil';
+import {getChapterBgColor} from '../../utils/Utility';
+import Touchable from '../../component/Touchable';
+import CommonFlatList from '../../component/CommonFlatList';
 
 /**
  * 知识体系
