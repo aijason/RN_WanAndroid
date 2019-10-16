@@ -1,15 +1,15 @@
 import React, {PureComponent} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import globalStyles from '../styles/globalStyles';
-import NavBar from '../component/NavBar';
-import {fetchOftenUsedWebsites} from '../actions';
-import {DEVICE_WIDTH, getRealDP as dp} from '../utils/screenUtil';
-import Color from '../utils/Color';
-import {getChapterBgColor} from '../utils/Utility';
-import Touchable from '../component/Touchable';
+import globalStyles from '../../styles/globalStyles';
+import NavBar from '../../component/NavBar';
+import {fetchOftenUsedWebsites} from '../../actions';
+import {DEVICE_WIDTH, getRealDP as dp} from '../../utils/screenUtil';
+import Color from '../../utils/Color';
+import {getChapterBgColor} from '../../utils/Utility';
+import Touchable from '../../component/Touchable';
 import Icon from 'react-native-vector-icons/Ionicons';
-import CommonFlatList from '../component/CommonFlatList';
+import CommonFlatList from '../../component/CommonFlatList';
 
 /**
  * 常用网站

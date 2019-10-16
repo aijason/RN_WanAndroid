@@ -1,10 +1,10 @@
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
-import globalStyles from '../styles/globalStyles';
-import NavBar from '../component/NavBar';
-import ArticleTabComponent from '../component/ArticleTabComponent';
-import {updateArticleLoading} from '../actions';
-import LoadingView from '../component/LoadingView';
+import globalStyles from '../../styles/globalStyles';
+import NavBar from '../../component/NavBar';
+import ArticleTabComponent from '../../component/ArticleTabComponent';
+import {updateArticleLoading} from '../../actions';
+import LoadingView from '../../component/LoadingView';
 import {connect} from 'react-redux';
 
 /**

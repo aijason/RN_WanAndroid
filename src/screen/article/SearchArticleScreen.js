@@ -1,20 +1,20 @@
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-import globalStyles from '../styles/globalStyles';
-import NavBar from '../component/NavBar';
+import globalStyles from '../../styles/globalStyles';
+import NavBar from '../../component/NavBar';
 import {
   clearSearchArticle,
   fetchSearchArticle,
   fetchSearchArticleAddCollect,
   fetchSearchArticleCancelCollect,
   fetchSearchArticleMore,
-} from '../actions';
-import ArticleItemRow from '../component/ArticleItemRow';
-import ListFooter from '../component/ListFooter';
-import {getRealDP as dp} from '../utils/screenUtil';
-import CommonFlatList from '../component/CommonFlatList';
-import {showToast} from '../utils/Utility';
+} from '../../actions';
+import ArticleItemRow from '../../component/ArticleItemRow';
+import ListFooter from '../../component/ListFooter';
+import {getRealDP as dp} from '../../utils/screenUtil';
+import CommonFlatList from '../../component/CommonFlatList';
+import {showToast} from '../../utils/Utility';
 
 /**
  * 搜索文章结果页

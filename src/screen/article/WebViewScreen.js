@@ -1,9 +1,9 @@
 import React, {PureComponent} from 'react';
 import {Share, View} from 'react-native';
 import WebView from 'react-native-webview';
-import ProgressBar from '../component/ProgressBar';
-import globalStyles from '../styles/globalStyles';
-import NavBar from '../component/NavBar';
+import ProgressBar from '../../component/ProgressBar';
+import globalStyles from '../../styles/globalStyles';
+import NavBar from '../../component/NavBar';
 
 /**
  * WebViewScreen

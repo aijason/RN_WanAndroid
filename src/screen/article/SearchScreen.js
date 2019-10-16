@@ -2,13 +2,13 @@ import React, {PureComponent} from 'react';
 import {View, TextInput, StyleSheet, Text, Keyboard} from 'react-native';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import globalStyles from '../styles/globalStyles';
-import NavBar from '../component/NavBar';
-import {DEVICE_WIDTH, getRealDP as dp} from '../utils/screenUtil';
-import Color from '../utils/Color';
-import {fetchSearchHotKey} from '../actions';
-import {getChapterBgColor, showToast} from '../utils/Utility';
-import Touchable from '../component/Touchable';
+import globalStyles from '../../styles/globalStyles';
+import NavBar from '../../component/NavBar';
+import {DEVICE_WIDTH, getRealDP as dp} from '../../utils/screenUtil';
+import Color from '../../utils/Color';
+import {fetchSearchHotKey} from '../../actions';
+import {getChapterBgColor, showToast} from '../../utils/Utility';
+import Touchable from '../../component/Touchable';
 
 /**
  * SearchScreen
