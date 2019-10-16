@@ -23,7 +23,7 @@ export default {
   settings: '設定',
   logout: '登出',
   'share-app-desc':
-    '分享一個使用React Native開發的玩安卓應用，點擊下載：https://github.com/aijason/RN_WanAndroid/releases/download/v1.0.1/RN_WanAndroid-release.apk',
+    '分享一個使用React Native開發的玩安卓應用，點擊下載：https://github.com/aijason/RN_WanAndroid/releases/download/v1.0.2/RN_WanAndroid-release.apk',
   tips: '提示',
   cancel: '取消',
   confirm: '確認',

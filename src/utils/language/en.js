@@ -23,7 +23,7 @@ export default {
   settings: 'Settings',
   logout: 'Logout',
   'share-app-desc':
-    'Share WanAndroid application developed with react native，Click to download：https://github.com/aijason/RN_WanAndroid/releases/download/v1.0.1/RN_WanAndroid-release.apk',
+    'Share WanAndroid application developed with react native，Click to download：https://github.com/aijason/RN_WanAndroid/releases/download/v1.0.2/RN_WanAndroid-release.apk',
   tips: 'Tips',
   cancel: 'Cancel',
   confirm: 'Confirm',
