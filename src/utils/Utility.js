@@ -92,6 +92,9 @@ export function i18n(Text) {
   return LanguageUtil.t(Text);
 }
 
+/**
+ * 抽屉列表数据
+ */
 export function getDrawerData() {
   return [
     {iconName: 'md-trending-up', title: i18n('my-points')},
@@ -101,5 +104,13 @@ export function getDrawerData() {
     {iconName: 'md-share', title: i18n('share-app')},
     {iconName: 'md-settings', title: i18n('settings')},
     {iconName: 'md-power', title: i18n('logout')},
+  ];
+}
+
+export function getLanguageList() {
+  return [
+    {language: '简体中文', languageCode: 'zhHans'},
+    {language: '繁体中文', languageCode: 'zhHant'},
+    {language: 'English', languageCode: 'en'},
   ];
 }

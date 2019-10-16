@@ -16,7 +16,11 @@ import {getRealDP as dp} from '../../utils/screenUtil';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Touchable from '../../component/Touchable';
-import {getThemeColorDataSource, i18n} from '../../utils/Utility';
+import {
+  getLanguageList,
+  getThemeColorDataSource,
+  i18n,
+} from '../../utils/Utility';
 import {changeThemeColor} from '../../actions';
 
 /**
@@ -33,8 +37,11 @@ class SettingScreen extends PureComponent {
   }
 
   render() {
-    const {isShowThemeColorView, rotateZ} = this.state;
+    const {isShowThemeColorView} = this.state;
     const {navigation, language, themeColor} = this.props;
+    const currentLanguage = getLanguageList().find(
+      el => el.languageCode === language,
+    );
     return (
       <View style={globalStyles.container}>
         <NavBar title={i18n('settings')} navigation={navigation} />
@@ -116,7 +123,7 @@ class SettingScreen extends PureComponent {
             </View>
             <View style={styles.sideWrapper}>
               <Text style={styles.settingLanguageText}>
-                {language === 'zhHans' ? '简体中文' : 'English'}
+                {currentLanguage.language}
               </Text>
               <Icon
                 name="md-arrow-forward"
