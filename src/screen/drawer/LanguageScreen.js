@@ -28,13 +28,15 @@ class LanguageScreen extends PureComponent {
     return (
       <Touchable
         key={item.languageCode}
+        isNativeFeedback
         isPreventDouble={false}
-        style={styles.itemWrapper}
         onPress={() => switchAPPLanguage(item.languageCode)}>
-        <Text style={styles.languageText}>{item.language}</Text>
-        {language === item.languageCode ? (
-          <Icon name={'md-checkmark'} size={dp(50)} color={Color.WX_GREEN} />
-        ) : null}
+        <View style={styles.itemWrapper}>
+          <Text style={styles.languageText}>{item.language}</Text>
+          {language === item.languageCode ? (
+            <Icon name={'md-checkmark'} size={dp(50)} color={Color.WX_GREEN} />
+          ) : null}
+        </View>
       </Touchable>
     );
   }
@@ -56,12 +58,14 @@ class LanguageScreen extends PureComponent {
 
 const styles = StyleSheet.create({
   itemWrapper: {
-    height: dp(100),
+    height: dp(120),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: dp(28),
     backgroundColor: Color.WHITE,
+    borderBottomWidth: dp(1),
+    borderBottomColor: Color.SPLIT_LINE,
   },
   languageText: {
     fontSize: dp(30),

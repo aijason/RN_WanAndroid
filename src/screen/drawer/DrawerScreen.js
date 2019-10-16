@@ -3,18 +3,14 @@
  */
 import React, {PureComponent} from 'react';
 import {
+  Alert,
+  DeviceEventEmitter,
   Image,
+  Share,
   StyleSheet,
   Text,
   TouchableNativeFeedback,
   View,
-  Share,
-  Modal,
-  TouchableWithoutFeedback,
-  ActivityIndicator,
-  Alert,
-  ScrollView,
-  DeviceEventEmitter,
 } from 'react-native';
 import globalStyles from '../../styles/globalStyles';
 import {
@@ -27,13 +23,8 @@ import Touchable from '../../component/Touchable';
 import Icon from 'react-native-vector-icons/Ionicons';
 import images from '../../images';
 import {connect} from 'react-redux';
-import {changeThemeColor, fetchToLogout} from '../../actions';
-import {
-  getDrawerData,
-  getThemeColorDataSource,
-  i18n,
-  showToast,
-} from '../../utils/Utility';
+import {fetchToLogout} from '../../actions';
+import {getDrawerData, i18n, showToast} from '../../utils/Utility';
 
 /**
  * 抽屉
@@ -47,9 +38,7 @@ class DrawerScreen extends PureComponent {
       drawerData: getDrawerData(), // 抽屉item数据源
     };
     this.renderHeader = this.renderHeader.bind(this);
-    this.renderThemeModal = this.renderThemeModal.bind(this);
     this.handleDrawerItemPress = this.handleDrawerItemPress.bind(this);
-    this.setModalVisible = this.setModalVisible.bind(this);
   }
 
   componentDidMount() {
@@ -77,36 +66,33 @@ class DrawerScreen extends PureComponent {
   handleDrawerItemPress(type) {
     const {navigation, isLogin} = this.props;
     switch (type) {
-      case 'md-trending-up':
+      case 'md-trending-up': // 我的积分
         if (!isLogin) {
           navigation.navigate('Login');
           return showToast(i18n('please-login-first'));
         }
         navigation.navigate('CoinDetail');
         break;
-      case 'md-heart':
+      case 'md-heart': // 我的收藏
         if (!isLogin) {
           navigation.navigate('Login');
           return showToast(i18n('please-login-first'));
         }
         navigation.navigate('Collect');
         break;
-      case 'md-globe':
+      case 'md-globe': // 常用网站
         navigation.navigate('Websites');
         break;
-      case 'md-color-palette':
-        this.setModalVisible(true);
-        break;
-      case 'md-share':
+      case 'md-share': // 分享
         this.onShare();
         break;
-      case 'md-person':
+      case 'md-person': // 关于作者
         navigation.navigate('About');
         break;
-      case 'md-settings':
+      case 'md-settings': // 设置
         navigation.navigate('Setting');
         break;
-      case 'md-power':
+      case 'md-power': // 退出登录
         Alert.alert(
           i18n('tips'),
           `${i18n('Are you sure to log out')}？`,
@@ -120,13 +106,6 @@ class DrawerScreen extends PureComponent {
       default:
         break;
     }
-  }
-
-  setModalVisible() {
-    this.setState({
-      modalVisible: !this.state.modalVisible,
-      isShowIndicator: false,
-    });
   }
 
   renderDrawerItem(item) {
@@ -194,53 +173,6 @@ class DrawerScreen extends PureComponent {
     );
   }
 
-  renderThemeModal() {
-    return (
-      <Modal
-        transparent
-        animationType="fade"
-        visible={this.state.modalVisible}
-        onRequestClose={this.setModalVisible}>
-        <TouchableWithoutFeedback onPress={this.setModalVisible}>
-          <View style={styles.themeColorWrapper}>
-            <TouchableWithoutFeedback>
-              <View style={styles.themeColorContent}>
-                <View style={styles.themeColorTitle}>
-                  <Text style={styles.themeColorText}>
-                    {i18n('set-up-themes')}
-                  </Text>
-                </View>
-                <ScrollView>
-                  {getThemeColorDataSource().map((el, index) => (
-                    <Touchable
-                      key={index}
-                      style={[
-                        styles.themeColorItem,
-                        {backgroundColor: el.color},
-                      ]}
-                      onPress={async () => {
-                        this.setState({isShowIndicator: true});
-                        await changeThemeColor(el.color);
-                        this.setModalVisible();
-                      }}>
-                      <Text style={styles.themeColorName}>{el.name}</Text>
-                    </Touchable>
-                  ))}
-                </ScrollView>
-              </View>
-            </TouchableWithoutFeedback>
-            <ActivityIndicator
-              style={styles.indicatorStyle}
-              size="large"
-              color={Color.TEXT_LIGHT}
-              animating={this.state.isShowIndicator}
-            />
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
-    );
-  }
-
   render() {
     return (
       <View style={globalStyles.container}>
@@ -248,7 +180,6 @@ class DrawerScreen extends PureComponent {
         <View style={{marginTop: dp(28)}}>
           {this.state.drawerData.map(item => this.renderDrawerItem(item))}
         </View>
-        {this.renderThemeModal()}
       </View>
     );
   }
@@ -303,46 +234,6 @@ const styles = StyleSheet.create({
     borderRadius: dp(30),
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  themeColorWrapper: {
-    width: DEVICE_WIDTH,
-    height: DEVICE_HEIGHT,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.3)',
-  },
-  themeColorContent: {
-    width: DEVICE_WIDTH * 0.8,
-    height: DEVICE_HEIGHT * 0.8,
-    backgroundColor: Color.WHITE,
-    paddingHorizontal: dp(30),
-    paddingBottom: dp(30),
-  },
-  themeColorTitle: {
-    paddingVertical: dp(30),
-    alignItems: 'center',
-    backgroundColor: Color.WHITE,
-  },
-  themeColorText: {
-    color: Color.TEXT_MAIN,
-    fontSize: dp(36),
-    fontWeight: 'bold',
-  },
-  themeColorItem: {
-    height: dp(100),
-    marginBottom: dp(30),
-    borderRadius: dp(100),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  themeColorName: {
-    fontSize: dp(28),
-    color: Color.WHITE,
-    fontWeight: 'bold',
-  },
-  indicatorStyle: {
-    position: 'absolute',
-    top: DEVICE_HEIGHT / 2 - dp(100),
   },
 });
 
