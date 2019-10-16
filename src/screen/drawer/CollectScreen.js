@@ -16,6 +16,7 @@ import {connect} from 'react-redux';
 import ArticleItemRow from '../../component/ArticleItemRow';
 import ListFooter from '../../component/ListFooter';
 import CommonFlatList from '../../component/CommonFlatList';
+import {i18n} from '../../utils/Utility';
 
 class CollectScreen extends PureComponent {
   constructor(props) {
@@ -79,7 +80,7 @@ class CollectScreen extends PureComponent {
     const {navigation, dataSource} = this.props;
     return (
       <View style={globalStyles.container}>
-        <NavBar title={'我的收藏'} navigation={navigation} />
+        <NavBar title={i18n('my-collection')} navigation={navigation} />
         <CommonFlatList
           data={dataSource}
           keyExtractor={item => item.id.toString()}

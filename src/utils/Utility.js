@@ -90,3 +90,16 @@ export function getThemeColorDataSource() {
 export function i18n(Text) {
   return LanguageUtil.t(Text);
 }
+
+export function getDrawerData() {
+  return [
+    {iconName: 'md-trending-up', title: i18n('my-points')},
+    {iconName: 'md-heart', title: i18n('my-collection')},
+    {iconName: 'md-globe', title: i18n('frequently-used-websites')},
+    {iconName: 'md-color-palette', title: i18n('theme-color')},
+    {iconName: 'md-share', title: i18n('share-app')},
+    {iconName: 'md-person', title: i18n('about-author')},
+    {iconName: 'md-settings', title: i18n('settings')},
+    {iconName: 'md-power', title: i18n('logout')},
+  ];
+}

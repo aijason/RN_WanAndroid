@@ -14,7 +14,7 @@ import ArticleItemRow from '../../component/ArticleItemRow';
 import ListFooter from '../../component/ListFooter';
 import {getRealDP as dp} from '../../utils/screenUtil';
 import CommonFlatList from '../../component/CommonFlatList';
-import {showToast} from '../../utils/Utility';
+import {i18n, showToast} from '../../utils/Utility';
 
 /**
  * 搜索文章结果页
@@ -60,7 +60,7 @@ class SearchArticleScreen extends PureComponent {
         item={item}
         onCollectPress={() => {
           if (!isLogin) {
-            showToast('请先登录');
+            showToast(i18n('please-login-first'));
             return navigation.navigate('Login');
           }
           if (item.collect) {

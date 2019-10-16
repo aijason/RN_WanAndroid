@@ -9,7 +9,7 @@ import Color from '../utils/Color';
 import globalStyles from '../styles/globalStyles';
 import Touchable from './Touchable';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {getChapterBgColor} from '../utils/Utility';
+import {getChapterBgColor, i18n} from '../utils/Utility';
 
 const propTypes = {
   navigation: PropTypes.object.isRequired,
@@ -89,7 +89,7 @@ class ArticleItemRow extends PureComponent {
                     },
                   ]}>
                   <Text style={globalStyles.specialText}>
-                    {item.superChapterName || '文章'}
+                    {item.superChapterName || i18n('Article')}
                   </Text>
                 </View>
               </View>

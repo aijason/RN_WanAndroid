@@ -7,7 +7,7 @@ import {getRealDP as dp} from '../utils/screenUtil';
 import ArticleItemRow from './ArticleItemRow';
 import {connect} from 'react-redux';
 import {addCollectArticle, cancelCollectArticle} from '../api';
-import {showToast} from '../utils/Utility';
+import {i18n, showToast} from '../utils/Utility';
 import ListFooter from './ListFooter';
 import CommonFlatList from './CommonFlatList';
 
@@ -107,7 +107,7 @@ class ArticleFlatList extends PureComponent {
         navigation={navigation}
         onCollectPress={() => {
           if (!isLogin) {
-            showToast('请先登录');
+            showToast(i18n('please-login-first'));
             return navigation.navigate('Login');
           }
           if (item.collect) {
@@ -121,7 +121,7 @@ class ArticleFlatList extends PureComponent {
           } else {
             addCollectArticle(item.id)
               .then(res => {
-                showToast('已收藏');
+                showToast(i18n('Have been collected'));
                 let addCollectDataSource = [...this.state.dataSource];
                 addCollectDataSource[index].collect = true;
                 this.setState({dataSource: addCollectDataSource});

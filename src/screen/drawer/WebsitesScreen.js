@@ -6,7 +6,7 @@ import NavBar from '../../component/NavBar';
 import {fetchOftenUsedWebsites} from '../../actions';
 import {DEVICE_WIDTH, getRealDP as dp} from '../../utils/screenUtil';
 import Color from '../../utils/Color';
-import {getChapterBgColor} from '../../utils/Utility';
+import {getChapterBgColor, i18n} from '../../utils/Utility';
 import Touchable from '../../component/Touchable';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CommonFlatList from '../../component/CommonFlatList';
@@ -59,7 +59,10 @@ class WebsitesScreen extends PureComponent {
     const {navigation, websites} = this.props;
     return (
       <View style={globalStyles.container}>
-        <NavBar title={'常用网站'} navigation={navigation} />
+        <NavBar
+          title={i18n('frequently-used-websites')}
+          navigation={navigation}
+        />
         <CommonFlatList
           data={websites}
           keyExtractor={item => item.id.toString()}

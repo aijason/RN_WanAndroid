@@ -17,7 +17,7 @@ import globalStyles from '../../styles/globalStyles';
 import {getRealDP as dp} from '../../utils/screenUtil';
 import ListFooter from '../../component/ListFooter';
 import ArticleItemRow from '../../component/ArticleItemRow';
-import {showToast} from '../../utils/Utility';
+import {i18n, showToast} from '../../utils/Utility';
 import CommonFlatList from '../../component/CommonFlatList';
 
 /**
@@ -67,7 +67,7 @@ class HomeScreen extends PureComponent {
         item={item}
         onCollectPress={() => {
           if (!isLogin) {
-            showToast('请先登录');
+            showToast(i18n('please-login-first'));
             return navigation.navigate('Login');
           }
           if (item.collect) {
@@ -106,7 +106,7 @@ class HomeScreen extends PureComponent {
     return (
       <View style={globalStyles.container}>
         <NavBar
-          title={'玩安卓'}
+          title={i18n('wanAndroid')}
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"
@@ -138,6 +138,7 @@ const mapStateToProps = state => {
     isFullData: state.home.isFullData,
     isLogin: state.user.isLogin,
     themeColor: state.user.themeColor,
+    language: state.user.language,
   };
 };
 

@@ -11,6 +11,7 @@ import {
   getRealDP as dp,
 } from '../utils/screenUtil';
 import Color from '../utils/Color';
+import {i18n} from '../utils/Utility';
 
 const propTypes = {
   isShowLoading: PropTypes.bool.isRequired,
@@ -31,7 +32,7 @@ class LoadingView extends Component {
         <View style={styles.loadingWrapper}>
           <View style={styles.loadingContent}>
             <ActivityIndicator size="large" color={Color.WHITE} />
-            <Text style={styles.loadingText}>正在加载...</Text>
+            <Text style={styles.loadingText}>{i18n('Loading')}</Text>
           </View>
         </View>
       </View>

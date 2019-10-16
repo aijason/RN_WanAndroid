@@ -7,7 +7,7 @@ import NavBar from '../../component/NavBar';
 import {DEVICE_WIDTH, getRealDP as dp} from '../../utils/screenUtil';
 import Color from '../../utils/Color';
 import {fetchSearchHotKey} from '../../actions';
-import {getChapterBgColor, showToast} from '../../utils/Utility';
+import {getChapterBgColor, i18n, showToast} from '../../utils/Utility';
 import Touchable from '../../component/Touchable';
 
 /**
@@ -35,7 +35,7 @@ class SearchScreen extends PureComponent {
             <View style={styles.textInputWrapper}>
               <TextInput
                 style={styles.textInputStyle}
-                placeholder=" 搜索更多干货"
+                placeholder={`  ${i18n('search-for-more-dry-goods')}`}
                 placeholderTextColor={Color.WHITE}
                 selectionColor={Color.WHITE}
                 autoFocus
@@ -49,14 +49,14 @@ class SearchScreen extends PureComponent {
           onRightPress={() => {
             Keyboard.dismiss();
             if (!this.state.searchKey) {
-              return showToast('请输入搜索关键词');
+              return showToast(i18n('please-enter-search-keywords'));
             }
             navigation.navigate('SearchArticle', {key: this.state.searchKey});
           }}
         />
         <View style={styles.hotKeyTitleWrapper}>
           <Icon name={'md-flame'} size={dp(50)} color={Color.RED} />
-          <Text style={styles.hotKeyTitleText}>热门搜索</Text>
+          <Text style={styles.hotKeyTitleText}>{i18n('popular-search')}</Text>
         </View>
         <View style={styles.hotKeyWrapper}>
           {hotKey.map(el => (

@@ -1,6 +1,7 @@
 /**
  * Created by hjs on 2019-09-17
  */
+import {DeviceEventEmitter} from 'react-native';
 import {
   getHomeBanner,
   getHomeList,
@@ -298,5 +299,6 @@ export function fetchMyCoinInfo() {
 export async function switchAPPLanguage(language) {
   await AuthUtil.saveAppLanguage(language);
   LanguageUtil.locale = language;
+  DeviceEventEmitter.emit('switchLanguage');
   store.dispatch(getSwitchAPPLanguageAction(language));
 }

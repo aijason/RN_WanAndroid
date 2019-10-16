@@ -14,6 +14,7 @@ import Color from '../utils/Color';
 import {connect} from 'react-redux';
 import {DEVICE_HEIGHT, getRealDP as dp} from '../utils/screenUtil';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {i18n} from '../utils/Utility';
 
 const propTypes = {
   toRefresh: PropTypes.func,
@@ -66,7 +67,7 @@ class CommonFlatList extends PureComponent {
               onRefresh={toRefresh}
               tintColor={themeColor}
               colors={[themeColor]}
-              title="玩命加载中..."
+              title={i18n('Playing with life loading')}
               titleColor={Color.TEXT_LIGHT}
             />
           }

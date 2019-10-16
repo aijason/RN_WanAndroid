@@ -6,7 +6,7 @@ import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import NavBar from '../../component/NavBar';
 import {DEVICE_WIDTH, getRealDP as dp} from '../../utils/screenUtil';
 import Color from '../../utils/Color';
-import {showToast} from '../../utils/Utility';
+import {i18n, showToast} from '../../utils/Utility';
 import {fetchToRegister} from '../../actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Touchable from '../../component/Touchable';
@@ -31,11 +31,11 @@ class RegisterScreen extends PureComponent {
   toRegister() {
     const {navigation} = this.props;
     if (this.state.userName === '') {
-      showToast('用户名不能为空');
+      showToast(i18n('User name cannot be empty'));
     } else if (this.state.password === '') {
-      showToast('密码不能为空');
+      showToast(i18n('Password cannot be empty'));
     } else if (this.state.passwordAgain === '') {
-      showToast('确认密码不能为空');
+      showToast(i18n('Confirm password cannot be empty'));
     } else {
       fetchToRegister(
         {
@@ -52,14 +52,14 @@ class RegisterScreen extends PureComponent {
     const {navigation, themeColor} = this.props;
     return (
       <View style={styles.container}>
-        <NavBar title={'注册'} navigation={navigation} />
+        <NavBar title={i18n('register')} navigation={navigation} />
         <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.content}>
             <View style={styles.textInputWrapper}>
               <Icon name={'md-person'} size={dp(50)} color={themeColor} />
               <TextInput
                 autoFocus
-                placeholder={'用户名'}
+                placeholder={i18n('userName')}
                 placeholderTextColor={Color.TEXT_LIGHT}
                 autoCapitalize={'none'}
                 style={styles.textInput}
@@ -72,7 +72,7 @@ class RegisterScreen extends PureComponent {
             <View style={styles.textInputWrapper}>
               <Icon name={'md-lock'} size={dp(50)} color={themeColor} />
               <TextInput
-                placeholder={'密码'}
+                placeholder={i18n('password')}
                 placeholderTextColor={Color.TEXT_LIGHT}
                 style={styles.textInput}
                 value={this.state.password}
@@ -98,7 +98,7 @@ class RegisterScreen extends PureComponent {
             <View style={styles.textInputWrapper}>
               <Icon name={'md-lock'} size={dp(50)} color={themeColor} />
               <TextInput
-                placeholder={'确认密码'}
+                placeholder={i18n('confirmPassword')}
                 placeholderTextColor={Color.TEXT_LIGHT}
                 style={styles.textInput}
                 value={this.state.passwordAgain}
@@ -124,7 +124,7 @@ class RegisterScreen extends PureComponent {
             <Touchable
               style={[styles.register, {backgroundColor: themeColor}]}
               onPress={this.toRegister}>
-              <Text style={styles.registerText}>注册</Text>
+              <Text style={styles.registerText}>{i18n('register')}</Text>
             </Touchable>
           </View>
         </ScrollView>

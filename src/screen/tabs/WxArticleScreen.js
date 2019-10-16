@@ -10,6 +10,7 @@ import globalStyles from '../../styles/globalStyles';
 import {fetchWxArticleTabs, updateArticleLoading} from '../../actions';
 import ArticleTabComponent from '../../component/ArticleTabComponent';
 import LoadingView from '../../component/LoadingView';
+import {i18n} from '../../utils/Utility';
 
 /**
  * 微信公众号
@@ -30,7 +31,7 @@ class WxArticleScreen extends PureComponent {
     return (
       <View style={globalStyles.container}>
         <NavBar
-          title={'公众号'}
+          title={i18n('publicAccount')}
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"

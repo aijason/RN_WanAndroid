@@ -10,7 +10,7 @@ import globalStyles from '../../styles/globalStyles';
 import {fetchGuideData, updateSelectIndex} from '../../actions';
 import {getRealDP as dp} from '../../utils/screenUtil';
 import Touchable from '../../component/Touchable';
-import {getChapterBgColor} from '../../utils/Utility';
+import {getChapterBgColor, i18n} from '../../utils/Utility';
 
 /**
  * 导航
@@ -142,7 +142,7 @@ class GuideScreen extends PureComponent {
     return (
       <View style={globalStyles.container}>
         <NavBar
-          title={'导航'}
+          title={i18n('Navigation')}
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"
@@ -179,7 +179,7 @@ class GuideScreen extends PureComponent {
                   onRefresh={this.onRefresh}
                   tintColor={themeColor}
                   colors={[themeColor]}
-                  title="玩命加载中..."
+                  title={i18n('Playing with life loading')}
                   titleColor={Color.TEXT_LIGHT}
                 />
               }

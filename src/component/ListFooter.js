@@ -6,6 +6,7 @@ import {Text, View, StyleSheet, ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 import {DEVICE_WIDTH, getRealDP as dp} from '../utils/screenUtil';
 import Color from '../utils/Color';
+import {i18n} from '../utils/Utility';
 
 const propTypes = {
   isRenderFooter: PropTypes.bool.isRequired,
@@ -27,7 +28,7 @@ class ListFooter extends Component {
     if (this.props.isFullData) {
       return (
         <View style={styles.footer}>
-          <Text style={{color: Color.TEXT_LIGHT}}>已加载全部</Text>
+          <Text style={{color: Color.TEXT_LIGHT}}>{i18n('all-loaded')}</Text>
         </View>
       );
     } else {
@@ -35,7 +36,7 @@ class ListFooter extends Component {
         <View style={styles.footer}>
           <ActivityIndicator color={this.props.indicatorColor} />
           <Text style={{marginLeft: dp(20), color: Color.TEXT_LIGHT}}>
-            玩命加载中...
+            {i18n('Playing with life loading')}
           </Text>
         </View>
       );

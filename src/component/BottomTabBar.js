@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {DEVICE_WIDTH, getRealDP as dp, isAndroid} from '../utils/screenUtil';
 import Color from '../utils/Color';
+import {i18n} from '../utils/Utility';
 
 class BottomTabBar extends PureComponent {
   render() {
@@ -21,27 +22,27 @@ class BottomTabBar extends PureComponent {
     let tabBarLabel, tabBarIconName, tabBarIconSize;
     switch (routeName) {
       case 'Home':
-        tabBarLabel = '首页';
+        tabBarLabel = i18n('home');
         tabBarIconName = 'ios-home';
         tabBarIconSize = dp(50);
         break;
       case 'System':
-        tabBarLabel = '体系';
+        tabBarLabel = i18n('system');
         tabBarIconName = 'ios-school';
         tabBarIconSize = dp(55);
         break;
       case 'WxArticle':
-        tabBarLabel = '公众号';
+        tabBarLabel = i18n('publicAccount');
         tabBarIconName = 'ios-people';
         tabBarIconSize = dp(64);
         break;
       case 'Guide':
-        tabBarLabel = '导航';
+        tabBarLabel = i18n('Navigation');
         tabBarIconName = 'ios-rocket';
         tabBarIconSize = dp(50);
         break;
       default:
-        tabBarLabel = '项目';
+        tabBarLabel = i18n('project');
         tabBarIconName = 'ios-paper';
         tabBarIconSize = dp(50);
         break;
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     themeColor: state.user.themeColor,
+    language: state.user.language,
   };
 };
 

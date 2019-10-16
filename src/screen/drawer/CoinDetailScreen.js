@@ -6,7 +6,11 @@ import {View, StyleSheet, Text} from 'react-native';
 import {connect} from 'react-redux';
 import globalStyles from '../../styles/globalStyles';
 import NavBar from '../../component/NavBar';
-import {fetchMyCoinInfo, fetchMyCoinList, fetchMyCoinListMore} from '../../actions';
+import {
+  fetchMyCoinInfo,
+  fetchMyCoinList,
+  fetchMyCoinListMore,
+} from '../../actions';
 import CommonFlatList from '../../component/CommonFlatList';
 import {
   DEVICE_WIDTH,
@@ -15,6 +19,7 @@ import {
 } from '../../utils/screenUtil';
 import ListFooter from '../../component/ListFooter';
 import Color from '../../utils/Color';
+import {i18n} from '../../utils/Utility';
 /**
  * 积分明细列表
  */
@@ -95,12 +100,12 @@ class CoinDetailScreen extends PureComponent {
     return (
       <View style={styles.container}>
         <NavBar
-          title={'积分明细'}
+          title={i18n('points-details')}
           navigation={navigation}
           rightIcon={'md-help-circle-outline'}
           onRightPress={() => {
             navigation.navigate('WebView', {
-              title: '积分规则',
+              title: i18n('points-rule'),
               url: 'https://www.wanandroid.com/blog/show/2653',
             });
           }}

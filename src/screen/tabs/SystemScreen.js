@@ -10,7 +10,7 @@ import Color from '../../utils/Color';
 import globalStyles from '../../styles/globalStyles';
 import {fetchSystemData} from '../../actions';
 import {getRealDP as dp} from '../../utils/screenUtil';
-import {getChapterBgColor} from '../../utils/Utility';
+import {getChapterBgColor, i18n} from '../../utils/Utility';
 import Touchable from '../../component/Touchable';
 import CommonFlatList from '../../component/CommonFlatList';
 
@@ -81,7 +81,7 @@ class SystemScreen extends PureComponent {
     return (
       <View style={globalStyles.container}>
         <NavBar
-          title={'体系'}
+          title={i18n('system')}
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"

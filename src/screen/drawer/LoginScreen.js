@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import NavBar from '../../component/NavBar';
 import {DEVICE_WIDTH, getRealDP as dp} from '../../utils/screenUtil';
 import Color from '../../utils/Color';
-import {showToast} from '../../utils/Utility';
+import {i18n, showToast} from '../../utils/Utility';
 import {fetchToLogin} from '../../actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Touchable from '../../component/Touchable';
@@ -29,9 +29,9 @@ class LoginScreen extends PureComponent {
   toLogin() {
     const {navigation} = this.props;
     if (this.state.userName === '') {
-      showToast('用户名不能为空');
+      showToast(i18n('User name cannot be empty'));
     } else if (this.state.password === '') {
-      showToast('密码不能为空');
+      showToast(i18n('Password cannot be empty'));
     } else {
       fetchToLogin(
         {
@@ -47,14 +47,14 @@ class LoginScreen extends PureComponent {
     const {navigation, themeColor} = this.props;
     return (
       <View style={styles.container}>
-        <NavBar title={'登录'} navigation={navigation} />
+        <NavBar title={i18n('login')} navigation={navigation} />
         <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.content}>
             <View style={styles.textInputWrapper}>
               <Icon name={'md-person'} size={dp(50)} color={themeColor} />
               <TextInput
                 autoFocus
-                placeholder={'用户名'}
+                placeholder={i18n('userName')}
                 placeholderTextColor={Color.TEXT_LIGHT}
                 autoCapitalize={'none'}
                 style={styles.textInput}
@@ -67,7 +67,7 @@ class LoginScreen extends PureComponent {
             <View style={styles.textInputWrapper}>
               <Icon name={'md-lock'} size={dp(50)} color={themeColor} />
               <TextInput
-                placeholder={'密码'}
+                placeholder={i18n('password')}
                 placeholderTextColor={Color.TEXT_LIGHT}
                 style={styles.textInput}
                 value={this.state.password}
@@ -93,14 +93,17 @@ class LoginScreen extends PureComponent {
             <Touchable
               style={[styles.login, {backgroundColor: themeColor}]}
               onPress={this.toLogin}>
-              <Text style={styles.loginText}>登录</Text>
+              <Text style={styles.loginText}>{i18n('login')}</Text>
             </Touchable>
             <Touchable
               onPress={() => {
                 navigation.navigate('Register');
               }}>
               <Text style={[styles.register, {color: themeColor}]}>
-                <Text style={{color: Color.TEXT_LIGHT}}>新用户？去</Text>注册
+                <Text style={{color: Color.TEXT_LIGHT}}>
+                  {i18n('New users? To')}
+                </Text>
+                {i18n('register')}
               </Text>
             </Touchable>
           </View>

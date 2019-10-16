@@ -27,6 +27,7 @@ class LanguageScreen extends PureComponent {
     const {language} = this.props;
     return (
       <Touchable
+        key={item.languageCode}
         isPreventDouble={false}
         style={styles.itemWrapper}
         onPress={() => switchAPPLanguage(item.languageCode)}>

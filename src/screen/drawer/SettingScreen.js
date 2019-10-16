@@ -10,25 +10,28 @@ import {getRealDP as dp} from '../../utils/screenUtil';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Touchable from '../../component/Touchable';
+import {i18n} from '../../utils/Utility';
 
 /**
  * 设置
  */
 class SettingScreen extends PureComponent {
   render() {
-    const {navigation} = this.props;
+    const {navigation, language} = this.props;
     return (
       <View style={globalStyles.container}>
-        <NavBar title={'设置'} navigation={navigation} />
+        <NavBar title={i18n('settings')} navigation={navigation} />
         <Touchable
           style={styles.itemWrapper}
           onPress={() => navigation.navigate('Language')}>
           <View style={styles.sideWrapper}>
             <Icon name={'ios-globe'} size={dp(50)} color={Color.TEXT_DARK} />
-            <Text style={styles.languageText}>多语言</Text>
+            <Text style={styles.languageText}>{i18n('language')}</Text>
           </View>
           <View style={styles.sideWrapper}>
-            <Text style={styles.settingLanguageText}>简体中文</Text>
+            <Text style={styles.settingLanguageText}>
+              {language === 'zhHans' ? '简体中文' : 'English'}
+            </Text>
             <Icon
               name="md-arrow-forward"
               size={dp(50)}
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    themeColor: state.user.themeColor,
+    language: state.user.language,
   };
 };
 

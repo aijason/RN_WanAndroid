@@ -13,6 +13,7 @@ import {
 } from '../../utils/screenUtil';
 import images from '../../images';
 import {connect} from 'react-redux';
+import {i18n} from '../../utils/Utility';
 
 /**
  * 关于作者
@@ -24,15 +25,15 @@ class AboutScreen extends PureComponent {
     const csdnStr = 'https://blog.csdn.net/u010379595';
     return (
       <View style={globalStyles.container}>
-        <NavBar title={'关于作者'} navigation={navigation} />
+        <NavBar title={i18n('about-author')} navigation={navigation} />
         <View style={styles.content}>
           <Image style={styles.logo} source={images.logoIcon} />
           <Text style={styles.desc}>
-            基于Facebook React-Native的玩安卓客户端
+            {i18n('wanAndroid-client-based-on-Facebook-react-native')}
           </Text>
           <View style={styles.item}>
             <Text style={styles.itemText}>
-              邮箱：
+              {i18n('email')}：
               <Text style={{color: themeColor}}>977854695@qq.com</Text>
             </Text>
           </View>
@@ -67,7 +68,9 @@ class AboutScreen extends PureComponent {
             </Text>
           </View>
           <Text style={styles.bottomText}>
-            本项目仅供学习使用，不得用作商业目的
+            {i18n(
+              'This project is for learning purposes only, not for commercial purposes',
+            )}
           </Text>
         </View>
       </View>
@@ -128,6 +131,7 @@ const styles = StyleSheet.create({
     color: Color.TEXT_MAIN,
     position: 'absolute',
     marginVertical: dp(50),
+    paddingHorizontal: dp(28),
     bottom: getBottomSpace(),
   },
   underlineText: {

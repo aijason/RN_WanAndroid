@@ -9,6 +9,7 @@ import globalStyles from '../../styles/globalStyles';
 import {fetchProjectTabs, updateArticleLoading} from '../../actions';
 import ArticleTabComponent from '../../component/ArticleTabComponent';
 import LoadingView from '../../component/LoadingView';
+import {i18n} from '../../utils/Utility';
 
 /**
  * 项目
@@ -24,7 +25,7 @@ class ProjectScreen extends PureComponent {
     return (
       <View style={globalStyles.container}>
         <NavBar
-          title={'项目'}
+          title={i18n('project')}
           navigation={navigation}
           leftIcon="md-person"
           rightIcon="md-search"

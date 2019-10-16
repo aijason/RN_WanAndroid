@@ -14,6 +14,7 @@ import {
   ActivityIndicator,
   Alert,
   ScrollView,
+  DeviceEventEmitter,
 } from 'react-native';
 import globalStyles from '../../styles/globalStyles';
 import {
@@ -27,7 +28,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import images from '../../images';
 import {connect} from 'react-redux';
 import {changeThemeColor, fetchToLogout} from '../../actions';
-import {getThemeColorDataSource, showToast} from '../../utils/Utility';
+import {
+  getDrawerData,
+  getThemeColorDataSource,
+  i18n,
+  showToast,
+} from '../../utils/Utility';
 
 /**
  * 抽屉
@@ -38,30 +44,30 @@ class DrawerScreen extends PureComponent {
     this.state = {
       modalVisible: false,
       isShowIndicator: false,
+      drawerData: getDrawerData(), // 抽屉item数据源
     };
-    // 抽屉item数据源
-    this.drawerData = [
-      {iconName: 'md-trending-up', title: '我的积分'},
-      {iconName: 'md-heart', title: '我的收藏'},
-      {iconName: 'md-globe', title: '常用网站'},
-      {iconName: 'md-color-palette', title: '主题'},
-      {iconName: 'md-share', title: '分享'},
-      {iconName: 'md-person', title: '关于作者'},
-      {iconName: 'md-settings', title: '设置'},
-      {iconName: 'md-power', title: '退出登录'},
-    ];
     this.renderHeader = this.renderHeader.bind(this);
     this.renderThemeModal = this.renderThemeModal.bind(this);
     this.handleDrawerItemPress = this.handleDrawerItemPress.bind(this);
     this.setModalVisible = this.setModalVisible.bind(this);
   }
 
+  componentDidMount() {
+    this.eventEmitter = DeviceEventEmitter.addListener('switchLanguage', () => {
+      this.setState({
+        drawerData: getDrawerData(),
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.eventEmitter && this.eventEmitter.remove();
+  }
+
   async onShare() {
     try {
       await Share.share({
-        message:
-          '分享一个使用React Native开发的玩安卓应用，' +
-          '点击下载：https://github.com/aijason/RN_WanAndroid/raw/master/android/app/release/RN_WanAndroid-release.apk',
+        message: i18n('share-app-desc'),
       });
     } catch (error) {
       alert(error.message);
@@ -71,42 +77,42 @@ class DrawerScreen extends PureComponent {
   handleDrawerItemPress(type) {
     const {navigation, isLogin} = this.props;
     switch (type) {
-      case '我的积分':
+      case 'md-trending-up':
         if (!isLogin) {
           navigation.navigate('Login');
-          return showToast('请先登录');
+          return showToast(i18n('please-login-first'));
         }
         navigation.navigate('CoinDetail');
         break;
-      case '我的收藏':
+      case 'md-heart':
         if (!isLogin) {
           navigation.navigate('Login');
-          return showToast('请先登录');
+          return showToast(i18n('please-login-first'));
         }
         navigation.navigate('Collect');
         break;
-      case '常用网站':
+      case 'md-globe':
         navigation.navigate('Websites');
         break;
-      case '主题':
+      case 'md-color-palette':
         this.setModalVisible(true);
         break;
-      case '分享':
+      case 'md-share':
         this.onShare();
         break;
-      case '关于作者':
+      case 'md-person':
         navigation.navigate('About');
         break;
-      case '设置':
+      case 'md-settings':
         navigation.navigate('Setting');
         break;
-      case '退出登录':
+      case 'md-power':
         Alert.alert(
-          '提示',
-          '确认退出登录吗？',
+          i18n('tips'),
+          `${i18n('Are you sure to log out')}？`,
           [
-            {text: '取消', onPress: () => {}},
-            {text: '确认', onPress: () => fetchToLogout()},
+            {text: i18n('cancel'), onPress: () => {}},
+            {text: i18n('confirm'), onPress: () => fetchToLogout()},
           ],
           {cancelable: false},
         );
@@ -125,14 +131,14 @@ class DrawerScreen extends PureComponent {
 
   renderDrawerItem(item) {
     const {isLogin} = this.props;
-    if (!isLogin && item.title === '退出登录') {
+    if (!isLogin && item.iconName === 'md-power') {
       return null;
     }
     return (
       <Touchable
         key={item.iconName}
         isNativeFeedback
-        onPress={() => this.handleDrawerItemPress(item.title)}>
+        onPress={() => this.handleDrawerItemPress(item.iconName)}>
         <View style={styles.drawerItem}>
           <Icon name={item.iconName} size={dp(40)} color={Color.TEXT_DARK} />
           <Text style={styles.drawerTitleText}>{item.title}</Text>
@@ -166,7 +172,9 @@ class DrawerScreen extends PureComponent {
               </View>
             )}
             <Text style={styles.loginText}>
-              {isLogin && userInfo.username ? userInfo.username : '未登录'}
+              {isLogin && userInfo.username
+                ? userInfo.username
+                : i18n('not-logged-in')}
             </Text>
           </View>
           <Touchable
@@ -198,7 +206,9 @@ class DrawerScreen extends PureComponent {
             <TouchableWithoutFeedback>
               <View style={styles.themeColorContent}>
                 <View style={styles.themeColorTitle}>
-                  <Text style={styles.themeColorText}>设置主题</Text>
+                  <Text style={styles.themeColorText}>
+                    {i18n('set-up-themes')}
+                  </Text>
                 </View>
                 <ScrollView>
                   {getThemeColorDataSource().map((el, index) => (
@@ -236,7 +246,7 @@ class DrawerScreen extends PureComponent {
       <View style={globalStyles.container}>
         {this.renderHeader()}
         <View style={{marginTop: dp(28)}}>
-          {this.drawerData.map(item => this.renderDrawerItem(item))}
+          {this.state.drawerData.map(item => this.renderDrawerItem(item))}
         </View>
         {this.renderThemeModal()}
       </View>
@@ -341,6 +351,7 @@ const mapStateToProps = state => {
     isLogin: state.user.isLogin,
     userInfo: state.user.userInfo,
     themeColor: state.user.themeColor,
+    language: state.user.language,
   };
 };
 
