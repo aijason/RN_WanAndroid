@@ -61,7 +61,7 @@
  - [react-navigation-drawer](https://github.com/react-navigation/drawer)
  - [react-navigation-stack](https://github.com/react-navigation/stack)
  - [react-navigation-tabs](https://github.com/react-navigation/tabs)
- - [react-native-i18n](git+https://github.com/aijason/react-native-i18n)
+ - [react-native-i18n](https://github.com/aijason/react-native-i18n)
  - [@react-native-community/async-storage](https://github.com/react-native-community/async-storage)
 
  ## Thanks
