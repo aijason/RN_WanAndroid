@@ -2,7 +2,13 @@
  * Created by huangjunsheng on 2019-10-15
  */
 import React, {PureComponent} from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  View,
+  Animated,
+} from 'react-native';
 import Color from '../../utils/Color';
 import NavBar from '../../component/NavBar';
 import globalStyles from '../../styles/globalStyles';
@@ -22,10 +28,12 @@ class SettingScreen extends PureComponent {
     this.state = {
       isShowThemeColorView: false,
       isShowIndicator: false,
+      rotation: new Animated.Value(0),
     };
   }
+
   render() {
-    const {isShowThemeColorView, isShowLoading} = this.state;
+    const {isShowThemeColorView, rotateZ} = this.state;
     const {navigation, language, themeColor} = this.props;
     return (
       <View style={globalStyles.container}>
@@ -36,6 +44,17 @@ class SettingScreen extends PureComponent {
           isNativeFeedback
           onPress={() => {
             this.setState({isShowThemeColorView: !isShowThemeColorView});
+            if (isShowThemeColorView) {
+              Animated.timing(this.state.rotation, {
+                toValue: 0,
+                duration: 200,
+              }).start();
+            } else {
+              Animated.timing(this.state.rotation, {
+                toValue: 1,
+                duration: 200,
+              }).start();
+            }
           }}>
           <View style={styles.itemWrapper}>
             <View style={styles.sideWrapper}>
@@ -48,11 +67,23 @@ class SettingScreen extends PureComponent {
             </View>
             <View style={styles.sideWrapper}>
               <View style={[styles.themeView, {backgroundColor: themeColor}]} />
-              <Icon
-                name="ios-arrow-down"
-                size={dp(50)}
-                color={Color.TEXT_DARK}
-              />
+              <Animated.View
+                style={{
+                  transform: [
+                    {
+                      rotateZ: this.state.rotation.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: ['0deg', '180deg'],
+                      }),
+                    },
+                  ],
+                }}>
+                <Icon
+                  name="ios-arrow-down"
+                  size={dp(50)}
+                  color={Color.TEXT_DARK}
+                />
+              </Animated.View>
             </View>
           </View>
         </Touchable>
@@ -61,6 +92,7 @@ class SettingScreen extends PureComponent {
           <View style={styles.themeColorWrapper}>
             {getThemeColorDataSource().map(el => (
               <Touchable
+                key={el.color}
                 activeOpacity={0.5}
                 onPress={async () => {
                   this.setState({isShowIndicator: true});
@@ -95,7 +127,6 @@ class SettingScreen extends PureComponent {
           </View>
         </Touchable>
         <ActivityIndicator
-          style={styles.indicatorStyle}
           size="large"
           color={Color.TEXT_LIGHT}
           animating={this.state.isShowIndicator}
@@ -144,11 +175,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     backgroundColor: Color.WHITE,
     paddingTop: dp(15),
-  },
-  indicatorStyle: {
-    // position: 'absolute',
-    // top: DEVICE_HEIGHT / 2 - dp(100),
-    // left: DEVICE_WIDTH / 2,
   },
 });
 
