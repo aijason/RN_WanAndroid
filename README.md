@@ -5,17 +5,17 @@
 **开源不易，如果喜欢的话希望给个 `Star` 或 `Fork` ^_^ ，谢谢~~**
 
 ## 前言
-这几年主要从事 `React Native` 的开发工作，最早接触到ReactNative的版本是`0.28^`，到最近的`0.61.1^`版本，跨度长达三年之久，爬过无数的坑，但还是对RN的未来充满信心，这次也非常感谢`WanAndroid开放API`，让我工作之余，用最新的RN版本体验下开发的乐趣！
+这几年主要从事 `React Native` 的开发工作，最早接触到ReactNative的版本是`0.28^`，到最近的`0.61.2^`版本，跨度长达三年之久，爬过无数的坑，但还是对RN的未来充满信心，这次也非常感谢`WanAndroid开放API`，让我工作之余，用最新的RN版本体验下开发的乐趣！
 
 ## 简介
-[RN_WanAndroid](https://github.com/aijason/RN_WanAndroid) 采用 `React Native` 框架编写，基于0.61.1^版本。结合 `Axios` + `React-Navigation` + `Redux` 等开源框架设计的项目，项目代码结构清晰并且有详细注释，如有任何疑问和建议请提 [Issues](https://github.com/aijason/RN_WanAndroid/issues) 或联系 qq： **977854695** ，**项目会持续迭代维护，也欢迎PR ^_^，努力打造一款优秀的React Native框架的 [WanAndroid](http://www.wanandroid.com/) 客户端**。
+[RN_WanAndroid](https://github.com/aijason/RN_WanAndroid) 采用 `React Native` 框架编写，基于0.61.2^版本。结合 `Axios` + `React-Navigation` + `Redux` 等开源框架设计的项目，项目代码结构清晰并且有详细注释，如有任何疑问和建议请提 [Issues](https://github.com/aijason/RN_WanAndroid/issues) 或联系 qq： **977854695** ，**项目会持续迭代维护，也欢迎PR ^_^，努力打造一款优秀的React Native框架的 [WanAndroid](http://www.wanandroid.com/) 客户端**。
 
 ## API
 [**玩 Android 开放 API**](http://www.wanandroid.com/blog/show/2)
 
 ## 下载体验
 
-- 点击[![](https://img.shields.io/badge/Download-apk-green.svg)](https://github.com/aijason/RN_WanAndroid/releases/download/v1.0.1/RN_WanAndroid-release.apk) 下载
+- 点击[![](https://img.shields.io/badge/Download-apk-green.svg)](https://github.com/aijason/RN_WanAndroid/releases/download/v1.0.2/RN_WanAndroid-release.apk) 下载
 
 ## IOS项目截图
 
@@ -40,6 +40,8 @@
 - 浏览文章、分享文章；
 - 查看常用网站；
 - 自定义切换主题颜色功能；
+- 多语言切换功能；
+- 我的积分明细；
 - 关于模块。
 
 ## 主要开源框架
@@ -59,6 +61,7 @@
  - [react-navigation-drawer](https://github.com/react-navigation/drawer)
  - [react-navigation-stack](https://github.com/react-navigation/stack)
  - [react-navigation-tabs](https://github.com/react-navigation/tabs)
+ - [react-native-i18n](git+https://github.com/aijason/react-native-i18n)
  - [@react-native-community/async-storage](https://github.com/react-native-community/async-storage)
 
  ## Thanks
