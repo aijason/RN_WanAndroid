@@ -28,7 +28,6 @@ class App extends PureComponent {
     const userInfo = await AuthUtil.getUserInfo();
     const themeColor = await AuthUtil.getThemeColor();
     const language = await AuthUtil.getAppLanguage();
-    console.log('language', language)
     if (language) {
       await switchAPPLanguage(language); // 设置app语言环境
     } else {
