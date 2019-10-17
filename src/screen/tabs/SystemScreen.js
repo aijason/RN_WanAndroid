@@ -151,6 +151,7 @@ const mapStateToProps = state => {
   return {
     systemData: state.system.systemData,
     themeColor: state.user.themeColor,
+    language: state.user.language,
   };
 };
 
