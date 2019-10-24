@@ -59,7 +59,7 @@ import {
   getMyCoinInfoAction,
   getSwitchAPPLanguageAction,
 } from './action-creator';
-import {showToast} from '../utils/Utility';
+import {i18n, showToast} from '../utils/Utility';
 import AuthUtil from '../utils/AuthUtil';
 import LanguageUtil from '../utils/LanguageUtil';
 
@@ -230,7 +230,7 @@ export function fetchCollectArticleMore(page) {
 export function fetchHomeAddCollect(id, index) {
   addCollectArticle(id)
     .then(res => {
-      showToast('已收藏');
+      showToast(i18n('Have been collected'));
       store.dispatch(getHomeAddCollectAction(index));
     })
     .catch(e => {});
@@ -254,7 +254,7 @@ export function fetchMyCollectCancelCollect(id, originId, index) {
 export function fetchMyCollectAddCollect(id, index) {
   addCollectArticle(id)
     .then(res => {
-      showToast('已收藏');
+      showToast(i18n('Have been collected'));
       store.dispatch(getMyCollectAddCollectAction(index));
     })
     .catch(e => {});
@@ -264,7 +264,7 @@ export function fetchMyCollectAddCollect(id, index) {
 export function fetchSearchArticleAddCollect(id, index) {
   addCollectArticle(id)
     .then(res => {
-      showToast('已收藏');
+      showToast(i18n('Have been collected'));
       store.dispatch(getSearchArticleAddCollectAction(index));
     })
     .catch(e => {});
