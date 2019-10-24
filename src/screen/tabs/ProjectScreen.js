@@ -46,6 +46,7 @@ const mapStateToProps = state => {
   return {
     projectTabs: state.project.projectTabs,
     isShowLoading: state.wxArticle.isShowLoading,
+    language: state.user.language,
   };
 };
 

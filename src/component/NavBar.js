@@ -1,10 +1,10 @@
 import React, {PureComponent} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableNativeFeedback,
   Image,
+  StyleSheet,
+  Text,
+  TouchableNativeFeedback,
+  View,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -165,6 +165,7 @@ const mapStateToProps = state => {
   return {
     isLogin: state.user.isLogin,
     themeColor: state.user.themeColor,
+    language: state.user.language,
   };
 };
 

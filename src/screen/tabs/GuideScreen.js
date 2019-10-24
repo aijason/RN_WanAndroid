@@ -265,6 +265,7 @@ const mapStateToProps = state => {
     guideData: state.guide.guideData,
     selectIndex: state.guide.selectIndex,
     themeColor: state.user.themeColor,
+    language: state.user.language,
   };
 };
 

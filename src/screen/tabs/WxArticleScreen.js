@@ -53,6 +53,7 @@ const mapStateToProps = state => {
   return {
     articleTabs: state.wxArticle.articleTabs,
     isShowLoading: state.wxArticle.isShowLoading,
+    language: state.user.language,
   };
 };
 
