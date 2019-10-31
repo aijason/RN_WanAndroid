@@ -11,9 +11,9 @@ I18n.defaultLocale = 'zhHans';
 I18n.fallbacks = true;
 
 I18n.translations = {
+  en,
   zhHans,
   zhHant,
-  en,
 };
 
 export default I18n;

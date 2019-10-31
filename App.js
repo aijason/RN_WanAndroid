@@ -17,6 +17,15 @@ class App extends PureComponent {
     this.initialInfo = this.initialInfo.bind(this);
   }
 
+  static async getDerivedStateFromProps() {
+    const language = await AuthUtil.getAppLanguage();
+    if (language) {
+      await switchAPPLanguage(language); // 设置app语言环境
+    } else {
+      await switchAPPLanguage('zhHans'); // 默认中文
+    }
+  }
+
   componentDidMount() {
     SplashScreen.hide();
     setAxios(); // 网络设置
@@ -27,12 +36,6 @@ class App extends PureComponent {
   async initialInfo() {
     const userInfo = await AuthUtil.getUserInfo();
     const themeColor = await AuthUtil.getThemeColor();
-    const language = await AuthUtil.getAppLanguage();
-    if (language) {
-      await switchAPPLanguage(language); // 设置app语言环境
-    } else {
-      await switchAPPLanguage('zhHans'); // 默认中文
-    }
     const authInfo = pickBy(
       {
         isLogin: !!userInfo,
